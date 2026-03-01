@@ -1,0 +1,129 @@
+{
+  "quiz_code": "5VW8AJGU",
+  "topic": "Elon Musk",
+  "language": "en",
+  "difficulty": "medium",
+  "created_at": "2026-03-01T08:28:50Z",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Where was Elon Musk born?",
+      "options": [
+        "Pretoria, South Africa",
+        "Vancouver, Canada",
+        "Palo Alto, California",
+        "Austin, Texas"
+      ],
+      "correct_index": 0,
+      "explanation": "The material states that Elon Musk was 'Born into a wealthy family in Pretoria, South Africa'."
+    },
+    {
+      "id": 2,
+      "question": "In what year did Elon Musk acquire Canadian citizenship?",
+      "options": [
+        "1971",
+        "1989",
+        "1997",
+        "2002"
+      ],
+      "correct_index": 1,
+      "explanation": "Musk emigrated in 1989 to Canada and has Canadian citizenship since his mother was born there."
+    },
+    {
+      "id": 3,
+      "question": "Which software company did Elon Musk co-found in 1995?",
+      "options": [
+        "X.com",
+        "SpaceX",
+        "Zip2",
+        "Tesla"
+      ],
+      "correct_index": 2,
+      "explanation": "In 1995, Musk co-founded the software company Zip2."
+    },
+    {
+      "id": 4,
+      "question": "When did Elon Musk become the CEO and product architect of Tesla?",
+      "options": [
+        "2002",
+        "2004",
+        "2008",
+        "2015"
+      ],
+      "correct_index": 2,
+      "explanation": "Musk joined the automaker Tesla as an early investor in 2004 and became its CEO and product architect in 2008."
+    },
+    {
+      "id": 5,
+      "question": "What was Elon Musk's estimated net worth as of February 2026, according to Forbes?",
+      "options": [
+        "Around US$1 trillion",
+        "Around US$852 billion",
+        "Around US$500 billion",
+        "Around US$100 billion"
+      ],
+      "correct_index": 1,
+      "explanation": "As of February 2026, Forbes estimates his net worth to be around US$852 billion."
+    },
+    {
+      "id": 6,
+      "question": "What was the primary goal for co-founding OpenAI in 2015?",
+      "options": [
+        "To develop reusable rockets",
+        "To advance artificial intelligence (AI) research",
+        "To create an online payment system",
+        "To establish a new social network"
+      ],
+      "correct_index": 1,
+      "explanation": "In 2015, he co-founded OpenAI to advance artificial intelligence (AI) research."
+    },
+    {
+      "id": 7,
+      "question": "In what year did Elon Musk acquire the social network Twitter, which he later rebranded as X?",
+      "options": [
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "correct_index": 1,
+      "explanation": "In 2022, he acquired the social network Twitter, implementing significant changes, and rebranding it as X in 2023."
+    },
+    {
+      "id": 8,
+      "question": "After Trump's inauguration in early 2025, what position did Elon Musk serve in the Trump administration?",
+      "options": [
+        "Secretary of State",
+        "Chief of Staff",
+        "Senior Advisor to the President and de facto head of the Department of Government Efficiency (DOGE)",
+        "Ambassador to Canada"
+      ],
+      "correct_index": 2,
+      "explanation": "After Trump was inaugurated as president in early 2025, Musk served as Senior Advisor to the President and as the de facto head of the Department of Government Efficiency (DOGE)."
+    },
+    {
+      "id": 9,
+      "question": "What was the reason for Elon Musk leaving OpenAI and establishing xAI?",
+      "options": [
+        "A desire to focus solely on space exploration with SpaceX.",
+        "Financial disputes with the other co-founders of OpenAI.",
+        "Growing discontent with OpenAI's direction and their leadership in the AI boom.",
+        "A new political appointment that required his full attention."
+      ],
+      "correct_index": 2,
+      "explanation": "Growing discontent with the organization's direction and their leadership in the AI boom in the 2020s led him to establish xAI."
+    },
+    {
+      "id": 10,
+      "question": "Which of these companies was founded by Elon Musk in 2017?",
+      "options": [
+        "Neuralink",
+        "OpenAI",
+        "The Boring Company",
+        "SpaceX"
+      ],
+      "correct_index": 2,
+      "explanation": "The tunneling company the Boring Company, which he founded in 2017."
+    }
+  ]
+}

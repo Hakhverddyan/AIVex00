@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AIVex • Teacher Mode Dashboard</title>
+
+    <!-- Base project styles -->
+    <link rel="stylesheet" href="/static/styles.css" />
+
+    <!-- Tailwind for modern layout & utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["system-ui", "SF Pro Display", "Inter", "ui-sans-serif"],
+            },
+            colors: {
+              flux: {
+                500: "#A855F7",
+                600: "#7C3AED",
+              },
+              ocean: {
+                400: "#38BDF8",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- GSAP for motion and micro-interactions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
+      }
+
+      .animated-gradient {
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(56, 189, 248, 0.35),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 100% 0%,
+            rgba(168, 85, 247, 0.38),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 50% 100%,
+            rgba(16, 185, 129, 0.25),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            rgba(15, 23, 42, 1),
+            rgba(15, 23, 42, 1)
+          );
+        background-size: 160% 160%;
+        animation: gradientShift 22s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 0%;
+        }
+        50% {
+          background-position: 100% 100%;
+        }
+        100% {
+          background-position: 0% 0%;
+        }
+      }
+
+      .orb {
+        filter: blur(32px);
+        opacity: 0.55;
+        mix-blend-mode: screen;
+        animation: orbFloat 18s ease-in-out infinite alternate;
+      }
+
+      @keyframes orbFloat {
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        50% {
+          transform: translate3d(30px, -40px, 0) scale(1.08);
+        }
+        100% {
+          transform: translate3d(-20px, 20px, 0) scale(1.02);
+        }
+      }
+
+      .cursor-dot,
+      .cursor-glow {
+        position: fixed;
+        pointer-events: none;
+        border-radius: 999px;
+        transform: translate3d(-50%, -50%, 0);
+        z-index: 50;
+      }
+
+      .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: radial-gradient(circle, #e5e7eb 0, #e5e7eb 40%, transparent 60%);
+        mix-blend-mode: screen;
+      }
+
+      .cursor-glow {
+        width: 56px;
+        height: 56px;
+        background: radial-gradient(
+          circle,
+          rgba(56, 189, 248, 0.55),
+          rgba(168, 85, 247, 0.35),
+          transparent 70%
+        );
+        filter: blur(10px);
+        opacity: 0.0;
+        transition: opacity 0.25s ease-out;
+      }
+
+      @media (pointer: coarse) {
+        .cursor-dot,
+        .cursor-glow {
+          display: none;
+        }
+      }
+
+      .reveal-up {
+        opacity: 0;
+        transform: translateY(24px);
+        will-change: opacity, transform;
+      }
+
+      .tilt-card {
+        transform-style: preserve-3d;
+        transform-origin: center center;
+        transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+          box-shadow 0.3s ease;
+      }
+
+      .tilt-card:hover {
+        box-shadow: 0 26px 90px rgba(15, 23, 42, 0.9),
+          0 0 50px rgba(56, 189, 248, 0.45);
+      }
+
+      /* Button ripple effect */
+      .ripple {
+        position: absolute;
+        border-radius: 999px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(248, 250, 252, 0.7), transparent 60%);
+        animation: rippleExpand 0.6s ease-out forwards;
+      }
+
+      @keyframes rippleExpand {
+        0% {
+          opacity: 0.75;
+          width: 0;
+          height: 0;
+        }
+        100% {
+          opacity: 0;
+          width: 260px;
+          height: 260px;
+        }
+      }
+
+      #scroll-progress {
+        transform-origin: 0 50%;
+      }
+
+      /* Extra animations for AIVex */
+      @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(56,189,248,0.3); }
+        50% { box-shadow: 0 0 40px rgba(168,85,247,0.5); }
+      }
+      @keyframes float-subtle {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+      .animate-pulse-glow {
+        animation: pulse-glow 3s ease-in-out infinite;
+      }
+      .animate-float-subtle {
+        animation: float-subtle 4s ease-in-out infinite;
+      }
+      .input-glow:focus {
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+      .shimmer-border {
+        background: linear-gradient(90deg, transparent, rgba(56,189,248,0.4), transparent);
+        background-size: 200% 100%;
+        animation: shimmer 3s linear infinite;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
+    <!-- Shared animated gradient and blobs -->
+    <div class="fixed inset-0 -z-20 animated-gradient"></div>
+    <div class="bg">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="blob b3"></div>
+    </div>
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div
+        class="orb absolute -left-40 top-10 h-72 w-72 rounded-full bg-gradient-to-br from-sky-400 via-flux-500 to-fuchsia-500 opacity-70"
+      ></div>
+      <div
+        class="orb absolute -right-32 top-40 h-80 w-80 rounded-full bg-gradient-to-br from-cyan-400 via-emerald-400 to-flux-600 opacity-70"
+      ></div>
+    </div>
+
+    <!-- Custom cursor -->
+    <div id="cursor-dot" class="cursor-dot"></div>
+    <div id="cursor-glow" class="cursor-glow"></div>
+
+    <!-- Scroll progress -->
+    <div
+      id="scroll-progress"
+      class="fixed left-0 top-0 z-40 h-1 w-full bg-gradient-to-r from-fuchsia-500 via-sky-400 to-emerald-400"
+      style="transform: scaleX(0);"
+    ></div>
+
+    <div id="toast" class="toast"></div>
+
+    <!-- Teacher dashboard shell -->
+    <div class="relative z-10 flex min-h-screen flex-col">
+      <!-- Top bar -->
+      <header
+        class="border-b border-white/5 bg-slate-950/80 backdrop-blur-xl shadow-[0_18px_60px_rgba(0,0,0,0.7)]"
+      >
+        <div
+          class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8"
+        >
+          <div class="flex items-center gap-3">
+            <a
+              href="/"
+              class="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-400 via-flux-500 to-fuchsia-500 text-lg font-black tracking-tight text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.45)] animate-pulse-glow"
+            >
+              A
+            </a>
+            <div class="flex flex-col">
+              <span class="font-display text-xs font-semibold tracking-[0.3em] uppercase bg-gradient-to-r from-sky-300 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent"
+                >AIVex</span
+              >
+              <span class="text-[11px] text-slate-400">Teacher Mode • Dashboard</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 text-[11px] text-slate-300">
+            <span
+              class="hidden items-center gap-1 rounded-full border border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 sm:inline-flex"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              Live with students
+            </span>
+            <a
+              href="/student"
+              class="btn inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em]"
+            >
+              <span>Open Student View</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main dashboard layout -->
+      <div class="mx-auto flex w-full max-w-4xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+        <!-- Main content column -->
+        <main class="flex-1 space-y-6 w-full">
+          <!-- AI quiz generation form -->
+          <section class="space-y-6">
+            <!-- AI quiz generation form (wired to backend IDs) -->
+            <div
+              class="reveal-up tilt-card rounded-3xl border border-sky-400/40 bg-slate-950/80 p-5 shadow-[0_24px_90px_rgba(15,23,42,0.95)] backdrop-blur-2xl animate-float-subtle"
+            >
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p
+                    class="text-[11px] font-semibold uppercase tracking-[0.25em] text-sky-300/90"
+                  >
+                    AI QUIZ GENERATOR
+                  </p>
+                  <h1 class="mt-1 text-base font-semibold text-slate-50 sm:text-lg">
+                    Turn your notes into scaffolded, graded quizzes.
+                  </h1>
+                </div>
+                <a
+                  href="/"
+                  class="hidden rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-semibold text-slate-200 hover:border-sky-300/70 sm:inline-block"
+                  >Back to Landing</a
+                >
+              </div>
+
+              <!-- Teacher password and controls -->
+              <div
+                class="mt-4 grid gap-4 rounded-2xl border border-white/10 bg-slate-950/70 p-4 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+              >
+                <div class="space-y-2">
+                  <div class="inline-flex items-center gap-2 text-[11px] text-slate-400">
+                    <span
+                      class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-800/80 text-xs"
+                      >🔒</span
+                    >
+                    <span class="font-semibold uppercase tracking-[0.28em]"
+                      >Teacher Password</span
+                    >
+                  </div>
+                  <label
+                    for="pw"
+                    class="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400"
+                    >Password for this session</label
+                  >
+                  <input
+                    id="pw"
+                    type="password"
+                    class="input-glow w-full rounded-xl border border-white/10 bg-slate-900/80 px-3 py-2 text-xs text-slate-100 outline-none ring-0 transition focus:border-sky-400/70 focus:shadow-[0_0_20px_rgba(56,189,248,0.4)]"
+                    placeholder="e.g., 123456"
+                  />
+                  <div class="mt-2 flex gap-2 text-[11px]">
+                    <button
+                      id="savePw"
+                      class="btn primary flex-1 rounded-xl border border-sky-400/70 bg-gradient-to-r from-sky-400 to-flux-500 px-3 py-1.5 text-[11px] font-semibold text-slate-950 shadow-[0_12px_40px_rgba(56,189,248,0.45)]"
+                    >
+                      Save password
+                    </button>
+                    <button
+                      id="clearPw"
+                      class="btn flex-1 rounded-xl border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-semibold"
+                    >
+                      Clear
+                    </button>
+                  </div>
+                </div>
+
+                <div class="space-y-3 text-[11px] text-slate-300">
+                  <p>
+                    Your password keeps AI-generated quizzes private to your account.
+                    Students never see or use it—they only receive quiz codes and Google
+                    Form links.
+                  </p>
+                  <p class="text-slate-400">
+                    AIVex also creates a matching
+                    <span class="text-sky-300">Google Apps Script</span> so you can sync
+                    scores and responses wherever you teach.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Quiz configuration -->
+              <div class="mt-5 space-y-3">
+                <div class="grid gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+                  <div class="space-y-2">
+                    <label
+                      for="topic"
+                      class="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400"
+                      >Quiz topic</label
+                    >
+                    <input
+                      id="topic"
+                      class="input-glow w-full rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none ring-0 transition focus:border-sky-400/70 focus:shadow-[0_0_20px_rgba(56,189,248,0.4)]"
+                      placeholder="e.g., Normal Distribution / Նորմալ բաշխում"
+                    />
+                  </div>
+                  <div class="grid grid-cols-3 gap-3 text-[11px]">
+                    <div>
+                      <label
+                        for="lang"
+                        class="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400"
+                        >Language</label
+                      >
+                      <select
+                        id="lang"
+                        class="w-full rounded-xl border border-white/10 bg-slate-950/70 px-2 py-2 text-xs text-slate-100"
+                      >
+                        <option value="en">English</option>
+                        <option value="hy">Հայերեն</option>
+                        <option value="ru">Русский</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label
+                        for="diff"
+                        class="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400"
+                        >Difficulty</label
+                      >
+                      <select
+                        id="diff"
+                        class="w-full rounded-xl border border-white/10 bg-slate-950/70 px-2 py-2 text-xs text-slate-100"
+                      >
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label
+                        for="n"
+                        class="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400"
+                        ># Questions</label
+                      >
+                      <input
+                        id="n"
+                        type="number"
+                        min="1"
+                        max="40"
+                        value="10"
+                        class="w-full rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2 text-xs text-slate-100"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <label
+                    for="material"
+                    class="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400"
+                    >Source material (more text = better questions)</label
+                  >
+                  <textarea
+                    id="material"
+                    class="input-glow min-h-[160px] w-full resize-y rounded-2xl border border-white/10 bg-slate-950/70 p-3 text-sm text-slate-100 outline-none ring-0 transition focus:border-sky-400/70 focus:shadow-[0_0_20px_rgba(56,189,248,0.4)]"
+                    placeholder="Paste lecture notes, textbook summaries, or example questions..."
+                  ></textarea>
+                </div>
+
+                <div class="mt-1 flex flex-wrap items-center gap-3 text-[11px]">
+                  <button
+                    id="generate"
+                    class="btn primary animate-pulse-glow inline-flex items-center gap-2 rounded-2xl border border-sky-400/80 bg-gradient-to-r from-sky-400 via-flux-500 to-fuchsia-500 px-4 py-2 font-semibold text-slate-950 shadow-[0_14px_45px_rgba(56,189,248,0.6)]"
+                  >
+                    <span>Generate quiz with AI</span>
+                    <span
+                      class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-950/20 text-xs"
+                      >⚡</span
+                    >
+                  </button>
+                  <button
+                    id="demo"
+                    class="btn inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-4 py-2 font-semibold"
+                  >
+                    Fill with demo content
+                  </button>
+                  <p id="status" class="text-[11px] text-slate-300"></p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Output section wired to backend IDs -->
+          <section id="quizOutputSection">
+            <div
+              class="tilt-card rounded-3xl border border-white/10 bg-slate-950/85 p-5 shadow-[0_20px_80px_rgba(15,23,42,1)] backdrop-blur-2xl animate-float-subtle"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p
+                    class="text-[11px] font-semibold uppercase tracking-[0.26em] text-slate-400"
+                  >
+                    Quiz Output & Student Links
+                  </p>
+                  <p class="mt-1 text-xs text-slate-300">
+                    Copy-ready links and codes for sharing with your class, plus a
+                    downloadable Apps Script for Google Forms.
+                  </p>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 text-[11px]">
+                  <button
+                    id="copyLink"
+                    disabled
+                    class="btn rounded-2xl border border-white/15 bg-white/5 px-3 py-1.5 font-semibold disabled:opacity-40"
+                  >
+                    Copy student link
+                  </button>
+                  <button
+                    id="copyCode"
+                    disabled
+                    class="btn rounded-2xl border border-white/15 bg-white/5 px-3 py-1.5 font-semibold disabled:opacity-40"
+                  >
+                    Copy quiz code
+                  </button>
+                  <button
+                    id="downloadForms"
+                    disabled
+                    class="btn rounded-2xl border border-emerald-400/60 bg-emerald-500/10 px-3 py-1.5 font-semibold text-emerald-200 disabled:opacity-40"
+                  >
+                    Download Google Forms Apps Script
+                  </button>
+                </div>
+              </div>
+              <div
+                id="outMeta"
+                class="mt-3 min-h-[60px] rounded-xl border border-white/10 bg-slate-900/60 p-4 text-sm text-slate-200"
+              >
+                <p class="text-slate-400">No quiz yet. Generate one above to unlock student links and codes.</p>
+              </div>
+              <div class="mt-4 h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+              <div id="quizView" class="mt-4 space-y-3 text-sm text-slate-100"></div>
+              <p class="mt-3 text-[11px] text-slate-500">
+                Students cannot edit topic or materials – they can only answer and
+                submit.
+              </p>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <footer class="border-t border-white/5 bg-slate-950/90 py-3 text-center">
+        <p class="text-[11px] text-slate-500">
+          AIVex Teacher Mode • Secure AI quiz generation connected to Google Forms.
+        </p>
+      </footer>
+    </div>
+
+    <!-- Existing teacher logic -->
+    <script src="/static/app_teacher.js"></script>
+
+    <!-- Dashboard motion & micro-interactions -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        // Custom cursor
+        const cursorDot = document.getElementById("cursor-dot");
+        const cursorGlow = document.getElementById("cursor-glow");
+        if (cursorDot && cursorGlow && !prefersReducedMotion && window.gsap) {
+          window.addEventListener("pointermove", (event) => {
+            const { clientX, clientY } = event;
+            cursorGlow.style.opacity = "1";
+            gsap.to(cursorDot, {
+              x: clientX,
+              y: clientY,
+              duration: 0.12,
+              ease: "power2.out",
+            });
+            gsap.to(cursorGlow, {
+              x: clientX,
+              y: clientY,
+              duration: 0.35,
+              ease: "power2.out",
+            });
+          });
+        }
+
+        // Scroll progress
+        const scrollProgress = document.getElementById("scroll-progress");
+        if (scrollProgress && !prefersReducedMotion) {
+          const updateProgress = () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight =
+              document.documentElement.scrollHeight -
+              document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+            scrollProgress.style.transform = `scaleX(${progress})`;
+          };
+          updateProgress();
+          window.addEventListener("scroll", updateProgress, { passive: true });
+        }
+
+        if (!prefersReducedMotion && window.gsap) {
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.utils.toArray(".reveal-up").forEach((el, i) => {
+            gsap.fromTo(
+              el,
+              { y: 32, opacity: 0, scale: 0.98 },
+              {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.9,
+                delay: i * 0.08,
+                ease: "back.out(1.2)",
+                scrollTrigger: { trigger: el, start: "top 85%" },
+              }
+            );
+          });
+        }
+
+        // 3D tilt on cards
+        document.querySelectorAll(".tilt-card").forEach((card) => {
+          const strength = 10;
+          card.addEventListener("pointermove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            const rotateX = y * -strength;
+            const rotateY = x * strength;
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0,0,0)`;
+          });
+          card.addEventListener("pointerleave", () => {
+            card.style.transform = "";
+          });
+        });
+
+        // Button ripple
+        document.querySelectorAll(".btn").forEach((btn) => {
+          btn.addEventListener("click", (event) => {
+            const rect = btn.getBoundingClientRect();
+            const ripple = document.createElement("span");
+            ripple.className = "ripple";
+            ripple.style.left = `${event.clientX - rect.left}px`;
+            ripple.style.top = `${event.clientY - rect.top}px`;
+            btn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+{
+  "quiz_code": "EDLK2CCH",
+  "topic": "Վահան Տերյան",
+  "language": "en",
+  "difficulty": "medium",
+  "created_at": "2026-03-01T08:08:57Z",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What was Vahan Teryan's real full name?",
+      "options": [
+        "Vahan Sukiasi Ter-Grigoryan",
+        "Vahan Hakobi Teryan",
+        "Vahan Sargsi Grigoryan",
+        "Vahan Petrosyan"
+      ],
+      "correct_index": 0,
+      "explanation": "The material states his real name was Վահան Սուքիասի Տեր-Գրիգորյան."
+    },
+    {
+      "id": 2,
+      "question": "In what year was Vahan Teryan's first collection of works, \"Մթնշաղի անուրջներ\" (Twilight Dreams), published?",
+      "options": [
+        "1908",
+        "1912",
+        "1915",
+        "1920"
+      ],
+      "correct_index": 0,
+      "explanation": "His first collection, \"Մթնշաղի անուրջներ,\" was published in 1908 in Tiflis."
+    },
+    {
+      "id": 3,
+      "question": "Which publishing house did Vahan Teryan found in 1912?",
+      "options": [
+        "\"Արեգակ\" (Aregak)",
+        "\"Պանթեոն\" (Pantheon)",
+        "\"Լույս\" (Luys)",
+        "\"Զանգակ\" (Zangak)"
+      ],
+      "correct_index": 1,
+      "explanation": "In 1912, Vahan Teryan founded the \"Պանթեոն\" publishing house."
+    },
+    {
+      "id": 4,
+      "question": "Which of the following works did Vahan Teryan NOT translate from Armenian into Russian?",
+      "options": [
+        "Raffi's \"Կայծեր\" (Sparks - first volume)",
+        "H. Tumanyan's \"Գիքորը\" (Gikor)",
+        "G. Sundukyan's \"Պեպո\"",
+        "Shirvanzade's \"Չար ոգին\" (Evil Spirit)"
+      ],
+      "correct_index": 1,
+      "explanation": "The material mentions his translations of G. Sundukyan's \"Պեպո,\" Raffi's \"Կայծերի\" (first volume), and Shirvanzade's \"Չար ոգին.\" Tumanyan's \"Գիքորը\" is not listed among his translations."
+    },
+    {
+      "id": 5,
+      "question": "What was the title of Vahan Teryan's series of patriotic poems published in the \"Մշակ\" (Mshak) newspaper in 1915?",
+      "options": [
+        "\"Քաղաքական երգեր\" (Political Songs)",
+        "\"Մթնշաղի անուրջներ\" (Twilight Dreams)",
+        "\"Երկիր Նաիրի\" (Land of Nairi)",
+        "\"Հայաստան\" (Armenia)"
+      ],
+      "correct_index": 2,
+      "explanation": "The \"Երկիր Նաիրի\" series of patriotic poems was published in the \"Մշակ\" newspaper in 1915."
+    },
+    {
+      "id": 6,
+      "question": "From the early days of Soviet power, Vahan Teryan became a close associate of which prominent political figure?",
+      "options": [
+        "Vladimir Lenin",
+        "Joseph Stalin",
+        "Leon Trotsky",
+        "Mikhail Kalinin"
+      ],
+      "correct_index": 1,
+      "explanation": "The material states he became a close associate of Stalin from the first days of Soviet power."
+    },
+    {
+      "id": 7,
+      "question": "What illness began to affect Vahan Teryan in 1916?",
+      "options": [
+        "Pneumonia",
+        "Cancer",
+        "Tuberculosis",
+        "Heart disease"
+      ],
+      "correct_index": 2,
+      "explanation": "In 1916, signs of tuberculosis (թոքախտ) began to appear in Vahan Teryan."
+    },
+    {
+      "id": 8,
+      "question": "In which city did Vahan Teryan pass away?",
+      "options": [
+        "Tiflis",
+        "Petersburg",
+        "Moscow",
+        "Orenburg"
+      ],
+      "correct_index": 3,
+      "explanation": "Vahan Teryan passed away in Orenburg on January 7, 1920, due to severe illness."
+    },
+    {
+      "id": 9,
+      "question": "Vahan Teryan participated in the creation of which literary collections alongside Valeri Bryusov and Maxim Gorky?",
+      "options": [
+        "\"Ռուսական պոեզիա\" և \"Համաշխարհային գրականություն\" (Russian Poetry and World Literature)",
+        "\"Հայաստանի պոեզիան\" և \"Հայ գրականության ժողովածու\" (Poetry of Armenia and Collection of Armenian Literature)",
+        "\"Արևելքի բանաստեղծներ\" և \"Գրական ժառանգություն\" (Poets of the East and Literary Heritage)",
+        "\"Միություն\" և \"Երգեր\" (Unity and Songs)"
+      ],
+      "correct_index": 1,
+      "explanation": "He participated in the creation of \"Հայաստանի պոեզիան\" and \"Հայ գրականության ժողովածու,\" which were compiled and edited by Valeri Bryusov and Maxim Gorky."
+    },
+    {
+      "id": 10,
+      "question": "Vahan Teryan participated in the signing of which significant peace treaty, holding a mandate signed by Lenin?",
+      "options": [
+        "Treaty of Versailles",
+        "Treaty of Brest-Litovsk",
+        "Treaty of Sèvres",
+        "Treaty of Lausanne"
+      ],
+      "correct_index": 1,
+      "explanation": "He participated in the signing of the Treaty of Brest-Litovsk with a mandate signed by Lenin."
+    }
+  ]
+}

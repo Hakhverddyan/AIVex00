@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AIVex • Student Mode</title>
+
+    <!-- Base project styles -->
+    <link rel="stylesheet" href="/static/styles.css" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["system-ui", "SF Pro Display", "Inter", "ui-sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- GSAP for subtle motion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
+      }
+
+      .animated-gradient {
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(56, 189, 248, 0.35),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 100% 0%,
+            rgba(168, 85, 247, 0.38),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 50% 100%,
+            rgba(16, 185, 129, 0.25),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            rgba(15, 23, 42, 1),
+            rgba(15, 23, 42, 1)
+          );
+        background-size: 160% 160%;
+        animation: gradientShift 22s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 0%;
+        }
+        50% {
+          background-position: 100% 100%;
+        }
+        100% {
+          background-position: 0% 0%;
+        }
+      }
+
+      .orb {
+        filter: blur(32px);
+        opacity: 0.55;
+        mix-blend-mode: screen;
+        animation: orbFloat 18s ease-in-out infinite alternate;
+      }
+
+      @keyframes orbFloat {
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        50% {
+          transform: translate3d(30px, -40px, 0) scale(1.08);
+        }
+        100% {
+          transform: translate3d(-20px, 20px, 0) scale(1.02);
+        }
+      }
+
+      .cursor-dot,
+      .cursor-glow {
+        position: fixed;
+        pointer-events: none;
+        border-radius: 999px;
+        transform: translate3d(-50%, -50%, 0);
+        z-index: 50;
+      }
+
+      .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: radial-gradient(circle, #e5e7eb 0, #e5e7eb 40%, transparent 60%);
+        mix-blend-mode: screen;
+      }
+
+      .cursor-glow {
+        width: 56px;
+        height: 56px;
+        background: radial-gradient(
+          circle,
+          rgba(56, 189, 248, 0.55),
+          rgba(168, 85, 247, 0.35),
+          transparent 70%
+        );
+        filter: blur(10px);
+        opacity: 0.0;
+        transition: opacity 0.25s ease-out;
+      }
+
+      @media (pointer: coarse) {
+        .cursor-dot,
+        .cursor-glow {
+          display: none;
+        }
+      }
+
+      .reveal-up {
+        opacity: 0;
+        transform: translateY(24px);
+        will-change: opacity, transform;
+      }
+
+      #scroll-progress {
+        transform-origin: 0 50%;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
+    <!-- Animated background -->
+    <div class="fixed inset-0 -z-20 animated-gradient"></div>
+    <div class="bg">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="blob b3"></div>
+    </div>
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div
+        class="orb absolute -left-40 top-24 h-72 w-72 rounded-full bg-gradient-to-br from-sky-400 via-flux-500 to-fuchsia-500 opacity-80"
+      ></div>
+      <div
+        class="orb absolute -right-32 bottom-10 h-72 w-72 rounded-full bg-gradient-to-br from-emerald-400 via-sky-400 to-flux-600 opacity-70"
+      ></div>
+    </div>
+
+    <!-- Custom cursor -->
+    <div id="cursor-dot" class="cursor-dot"></div>
+    <div id="cursor-glow" class="cursor-glow"></div>
+
+    <!-- Scroll progress -->
+    <div
+      id="scroll-progress"
+      class="fixed left-0 top-0 z-40 h-1 w-full bg-gradient-to-r from-fuchsia-500 via-sky-400 to-emerald-400"
+      style="transform: scaleX(0);"
+    ></div>
+
+    <div id="toast" class="toast"></div>
+
+    <!-- Student experience shell -->
+    <div class="relative z-10 flex min-h-screen flex-col">
+      <header
+        class="border-b border-white/5 bg-slate-950/80 backdrop-blur-xl shadow-[0_16px_60px_rgba(0,0,0,0.7)]"
+      >
+        <div
+          class="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8"
+        >
+          <div class="flex items-center gap-3">
+            <a
+              href="/"
+              class="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-400 via-flux-500 to-fuchsia-500 text-lg font-black tracking-tight text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.45)]"
+            >
+              A
+            </a>
+            <div class="flex flex-col">
+              <span class="font-display text-xs font-semibold tracking-[0.3em] uppercase bg-gradient-to-r from-sky-300 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent"
+                >AIVex</span
+              >
+              <span class="text-[11px] text-slate-400">Student Mode</span>
+            </div>
+          </div>
+          <p class="hidden text-[11px] text-slate-400 sm:block">
+            Enter the code from your teacher to start.
+          </p>
+        </div>
+      </header>
+
+      <main
+        class="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8"
+      >
+        <!-- Friendly intro -->
+        <section class="reveal-up text-center">
+          <p
+            class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.28em] text-sky-200"
+          >
+            🎓 Student Space • Focus Mode
+          </p>
+          <h1
+            class="mt-3 text-xl font-semibold tracking-tight text-slate-50 sm:text-2xl"
+          >
+            Join your teacher’s AI-generated quiz in seconds.
+          </h1>
+          <p class="mt-1 text-xs text-slate-300 sm:text-sm">
+            No sign-up, no distractions—just the code, the questions, and a clean space
+            to show what you know.
+          </p>
+        </section>
+
+        <!-- Main grid: join + quiz + results -->
+        <section class="reveal-up grid flex-1 gap-5 md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)]">
+          <!-- Left column: code entry + quiz -->
+          <div
+            class="flex flex-col rounded-3xl border border-sky-400/40 bg-slate-950/85 p-5 shadow-[0_20px_80px_rgba(15,23,42,1)] backdrop-blur-2xl"
+          >
+            <!-- Join card -->
+            <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <span
+                    class="inline-flex h-7 w-7 items-center justify-center rounded-2xl bg-sky-500/20 text-base"
+                    >🎫</span
+                  >
+                  <div class="text-left text-xs">
+                    <p class="font-semibold text-slate-100">Enter quiz code</p>
+                    <p class="text-[11px] text-slate-400">
+                      Your teacher shares a short code. You type it here.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3 grid gap-3 sm:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+                <div class="space-y-2">
+                  <label
+                    for="code"
+                    class="text-[11px] font-medium uppercase tracking-[0.24em] text-slate-400"
+                    >Quiz code</label
+                  >
+                  <input
+                    id="code"
+                    class="w-full rounded-xl border border-white/10 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none ring-0 transition focus:border-sky-400/70 focus:shadow-[0_0_0_1px_rgba(56,189,248,0.65)]"
+                    placeholder="8 characters (from teacher)"
+                  />
+                </div>
+                <div class="flex flex-col gap-2 text-[11px]">
+                  <button
+                    id="load"
+                    class="btn primary inline-flex items-center justify-center gap-2 rounded-xl border border-sky-400/80 bg-gradient-to-r from-sky-400 via-flux-500 to-fuchsia-500 px-3 py-2 font-semibold text-slate-950 shadow-[0_12px_40px_rgba(56,189,248,0.6)]"
+                  >
+                    Load quiz
+                  </button>
+                  <button
+                    id="downloadForms"
+                    disabled
+                    class="btn inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-400/60 bg-emerald-500/10 px-3 py-2 font-semibold text-emerald-200 disabled:opacity-40"
+                  >
+                    Download Google Forms Apps Script
+                  </button>
+                  <a
+                    href="/"
+                    class="btn inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 font-semibold"
+                  >
+                    Back to Landing
+                  </a>
+                </div>
+              </div>
+
+              <p id="status" class="mt-2 text-[11px] text-slate-300"></p>
+            </div>
+
+            <!-- Quiz area, wired to backend -->
+            <div class="mt-4 flex-1 rounded-2xl border border-white/10 bg-slate-950/80 p-4">
+              <div class="mb-2 flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                  <span
+                    class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/15 text-base"
+                    >📝</span
+                  >
+                  <span>Quiz</span>
+                </div>
+                <span
+                  class="rounded-full bg-slate-900/80 px-3 py-1 text-[11px] text-slate-400"
+                  >Focus mode: your answers are only visible after you submit.</span
+                >
+              </div>
+              <div
+                id="quizArea"
+                class="small mt-2 max-h-[360px] space-y-3 overflow-y-auto rounded-xl bg-slate-950/80 p-3 text-xs text-slate-300"
+              >
+                No quiz loaded.
+              </div>
+
+              <div class="mt-3 flex flex-wrap items-center gap-3 text-[11px]">
+                <button
+                  id="submit"
+                  disabled
+                  class="btn primary inline-flex items-center justify-center gap-2 rounded-2xl border border-emerald-400/80 bg-emerald-500 px-4 py-2 font-semibold text-slate-950 disabled:opacity-40"
+                >
+                  Submit answers
+                </button>
+                <button
+                  id="reset"
+                  disabled
+                  class="btn inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-4 py-2 font-semibold disabled:opacity-40"
+                >
+                  Reset choices
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column: results -->
+          <div
+            class="reveal-up flex flex-col rounded-3xl border border-emerald-400/40 bg-slate-950/85 p-5 shadow-[0_20px_80px_rgba(15,23,42,1)] backdrop-blur-2xl"
+          >
+            <div class="flex items-center gap-2">
+              <span
+                class="inline-flex h-7 w-7 items-center justify-center rounded-2xl bg-emerald-500/20 text-base"
+                >✅</span
+              >
+              <div class="text-xs">
+                <p class="font-semibold text-emerald-200">Results</p>
+                <p class="text-[11px] text-emerald-100/80">
+                  You’ll see your score and correct answers after submitting.
+                </p>
+              </div>
+            </div>
+
+            <div
+              id="results"
+              class="mt-3 small flex-1 rounded-2xl bg-slate-950/80 p-4 text-xs text-slate-200"
+            >
+              Submit to see your score.
+            </div>
+
+            <p class="mt-3 text-[11px] text-slate-400">
+              Your teacher can see your responses, but only you see this result screen.
+            </p>
+          </div>
+        </section>
+
+        <section class="mt-2 text-center text-[11px] text-slate-400">
+          Student cannot edit topic/material. Only teacher creates quizzes. You just
+          show what you know.
+        </section>
+      </main>
+
+      <footer class="border-t border-white/5 bg-slate-950/90 py-3 text-center">
+        <p class="text-[11px] text-slate-500">
+          AIVex Student Mode • Calm, focused, and built for learning.
+        </p>
+      </footer>
+    </div>
+
+    <!-- Existing student logic -->
+    <script src="/static/app_student.js"></script>
+
+    <!-- Student micro-interactions -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        // Custom cursor
+        const cursorDot = document.getElementById("cursor-dot");
+        const cursorGlow = document.getElementById("cursor-glow");
+        if (cursorDot && cursorGlow && !prefersReducedMotion && window.gsap) {
+          window.addEventListener("pointermove", (event) => {
+            const { clientX, clientY } = event;
+            cursorGlow.style.opacity = "1";
+            gsap.to(cursorDot, {
+              x: clientX,
+              y: clientY,
+              duration: 0.12,
+              ease: "power2.out",
+            });
+            gsap.to(cursorGlow, {
+              x: clientX,
+              y: clientY,
+              duration: 0.35,
+              ease: "power2.out",
+            });
+          });
+        }
+
+        // Scroll progress
+        const scrollProgress = document.getElementById("scroll-progress");
+        if (scrollProgress && !prefersReducedMotion) {
+          const updateProgress = () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight =
+              document.documentElement.scrollHeight -
+              document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+            scrollProgress.style.transform = `scaleX(${progress})`;
+          };
+          updateProgress();
+          window.addEventListener("scroll", updateProgress, { passive: true });
+        }
+
+        if (!prefersReducedMotion && window.gsap) {
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.utils.toArray(".reveal-up").forEach((el) => {
+            gsap.fromTo(
+              el,
+              { y: 24, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: { trigger: el, start: "top 80%" },
+              }
+            );
+          });
+        }
+
+        // Micro interaction: small bounce when status shows success
+        const results = document.getElementById("results");
+        const status = document.getElementById("status");
+        if (results && status && window.MutationObserver && !prefersReducedMotion) {
+          const observer = new MutationObserver(() => {
+            if (status.textContent && status.textContent.includes("Submitted")) {
+              gsap.fromTo(
+                results,
+                { scale: 0.96, opacity: 0.9 },
+                { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
+              );
+            }
+          });
+          observer.observe(status, { childList: true, subtree: true });
+        }
+      });
+    </script>
+  </body>
+</html>

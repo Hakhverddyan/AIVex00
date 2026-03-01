@@ -1,0 +1,129 @@
+{
+  "quiz_code": "W9LHU53X",
+  "topic": "Gemini",
+  "language": "en",
+  "difficulty": "medium",
+  "created_at": "2026-03-01T10:29:40Z",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following companies did Elon Musk co-found or found, then later sold or merged, eventually leading to PayPal?",
+      "options": [
+        "Zip2",
+        "X.com",
+        "SpaceX",
+        "OpenAI"
+      ],
+      "correct_index": 1,
+      "explanation": "Musk co-founded X.com, an online payment company that later merged to form PayPal, which was acquired by eBay."
+    },
+    {
+      "id": 2,
+      "question": "In what year did Elon Musk become an American citizen?",
+      "options": [
+        "1989",
+        "1997",
+        "2002",
+        "2008"
+      ],
+      "correct_index": 2,
+      "explanation": "The material states, 'Musk also became an American citizen in 2002.'"
+    },
+    {
+      "id": 3,
+      "question": "As of February 2026, what was Forbes' estimate of Elon Musk's net worth?",
+      "options": [
+        "Around US$1 trillion",
+        "Around US$852 billion",
+        "Around US$500 million",
+        "Around US$1.6 billion"
+      ],
+      "correct_index": 1,
+      "explanation": "As of February 2026, Forbes estimates his net worth to be around US$852 billion."
+    },
+    {
+      "id": 4,
+      "question": "Elon Musk co-founded OpenAI in 2015, but later left. What was the primary reason cited for his departure?",
+      "options": [
+        "He wanted to focus solely on Tesla.",
+        "He disagreed with the company's decision to go public.",
+        "Growing discontent with the organization's direction and their leadership in the AI boom.",
+        "He was asked to leave due to conflicts of interest."
+      ],
+      "correct_index": 2,
+      "explanation": "Growing discontent with the organization's direction and their leadership in the AI boom in the 2020s led him to establish xAI."
+    },
+    {
+      "id": 5,
+      "question": "What significant change did Elon Musk make to the social network Twitter after acquiring it in 2022?",
+      "options": [
+        "He rebranded it as X.",
+        "He sold it to Google.",
+        "He shut down its operations.",
+        "He merged it with Neuralink."
+      ],
+      "correct_index": 0,
+      "explanation": "In 2022, he acquired the social network Twitter, implementing significant changes, and rebranding it as X in 2023."
+    },
+    {
+      "id": 6,
+      "question": "Which of the following citizenships did Elon Musk hold from birth?",
+      "options": [
+        "South African and American",
+        "Canadian and American",
+        "South African and Canadian",
+        "British and South African"
+      ],
+      "correct_index": 2,
+      "explanation": "Musk holds both South African and Canadian citizenship from birth because his mother was born in Canada."
+    },
+    {
+      "id": 7,
+      "question": "After his parents divorced, Elon, at around age 9, chose to live with his father. What was his primary reason for this decision?",
+      "options": [
+        "His father lived in a bigger house.",
+        "His father had an Encyclopædia Britannica and a computer.",
+        "His father offered him more freedom.",
+        "His mother was frequently away for modeling."
+      ],
+      "correct_index": 1,
+      "explanation": "Elon, aged around 9, chose to live with his father because Errol Musk had an Encyclopædia Britannica and a computer."
+    },
+    {
+      "id": 8,
+      "question": "Elon Musk served in the Trump administration after Donald Trump's inauguration in early 2025. What was his primary role?",
+      "options": [
+        "Secretary of Commerce",
+        "Senior Advisor to the President and de facto head of the Department of Government Efficiency (DOGE)",
+        "Chief Technology Officer",
+        "Ambassador to Canada"
+      ],
+      "correct_index": 1,
+      "explanation": "After Trump was inaugurated as president in early 2025, Musk served as Senior Advisor to the President and as the de facto head of the Department of Government Efficiency (DOGE)."
+    },
+    {
+      "id": 9,
+      "question": "At what age did Elon Musk sell his first BASIC-based game, Blastar?",
+      "options": [
+        "Ten",
+        "Twelve",
+        "Fifteen",
+        "Eighteen"
+      ],
+      "correct_index": 1,
+      "explanation": "At age twelve, Elon sold his BASIC-based game Blastar to PC and Office Technology magazine."
+    },
+    {
+      "id": 10,
+      "question": "Which of the following is cited as a criticism against Elon Musk in the provided material?",
+      "options": [
+        "His investment in reusable rocket technology for SpaceX.",
+        "His role as CEO of Tesla.",
+        "COVID-19 misinformation, promoting conspiracy theories, and affirming antisemitic, racist, and transphobic comments.",
+        "His co-founding of Neuralink."
+      ],
+      "correct_index": 2,
+      "explanation": "Musk has been criticized for COVID-19 misinformation, promoting conspiracy theories, and affirming antisemitic, racist, and transphobic comments."
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "quiz_code": "284LY7FN",
+  "topic": "Վահան Տերյան",
+  "language": "en",
+  "difficulty": "medium",
+  "created_at": "2026-03-01T08:17:42Z",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What was Vahan Teryan's real full name?",
+      "options": [
+        "Vahan Sukiasi Ter-Grigoryan",
+        "Vahan Grigoryan",
+        "Vahan Sukiasi Teryan",
+        "Vahan Ter-Grigoryan Sukiasi"
+      ],
+      "correct_index": 0,
+      "explanation": "The text states his real name was Vahan Sukiasi Ter-Grigoryan."
+    },
+    {
+      "id": 2,
+      "question": "In what year was Vahan Teryan's first collection of works, \"Twilight Dreams\" (Մթնշաղի անուրջներ), published?",
+      "options": [
+        "1908",
+        "1912",
+        "1915",
+        "1920"
+      ],
+      "correct_index": 0,
+      "explanation": "His first collection, \"Twilight Dreams,\" was published in 1908 in Tiflis."
+    },
+    {
+      "id": 3,
+      "question": "What was the title of Vahan Teryan's series of patriotic poems published in the \"Mshak\" newspaper in 1915?",
+      "options": [
+        "Twilight Dreams",
+        "Land of Nairi",
+        "Poetry of Armenia",
+        "Evil Spirit"
+      ],
+      "correct_index": 1,
+      "explanation": "The patriotic poems series published in \"Mshak\" was titled \"Land of Nairi.\""
+    },
+    {
+      "id": 4,
+      "question": "Which publishing house did Vahan Teryan found in 1912?",
+      "options": [
+        "Pantheon",
+        "Mshak",
+        "Nairi",
+        "Aurora"
+      ],
+      "correct_index": 0,
+      "explanation": "In 1912, he founded the \"Pantheon\" publishing house."
+    },
+    {
+      "id": 5,
+      "question": "Vahan Teryan participated in the creation of literary collections compiled and edited by which two prominent figures between 1915-1916?",
+      "options": [
+        "Maxim Gorky and Valery Bryusov",
+        "Gabriel Sundukyan and Raffi",
+        "Shirvanzade and Lenin",
+        "Stalin and Bryusov"
+      ],
+      "correct_index": 0,
+      "explanation": "He worked on books compiled by Valery Bryusov and Maxim Gorky."
+    },
+    {
+      "id": 6,
+      "question": "Which of the following works did Vahan Teryan translate from Armenian to Russian?",
+      "options": [
+        "Gabriel Sundukyan's \"Pepo\"",
+        "Hovhannes Tumanyan's \"Gikor\"",
+        "Avetik Isahakyan's \"Abul Lala Mahari\"",
+        "Yeghishe Charents' \"Dantean Legend\""
+      ],
+      "correct_index": 0,
+      "explanation": "He translated Gabriel Sundukyan's \"Pepo,\" Raffi's \"Sparks\" (first volume), and Shirvanzade's \"Evil Spirit.\""
+    },
+    {
+      "id": 7,
+      "question": "What medical condition did Vahan Teryan begin to show signs of in 1916?",
+      "options": [
+        "Heart disease",
+        "Tuberculosis",
+        "Pneumonia",
+        "Cancer"
+      ],
+      "correct_index": 1,
+      "explanation": "In 1916, signs of tuberculosis began to appear in Vahan."
+    },
+    {
+      "id": 8,
+      "question": "Which major political event prompted Vahan Teryan to abandon his treatment in the Caucasus and travel to Petersburg?",
+      "options": [
+        "The October Revolution",
+        "The February Revolution",
+        "The Civil War",
+        "The signing of the Brest Peace Treaty"
+      ],
+      "correct_index": 1,
+      "explanation": "The February Revolution prompted him to leave his treatment."
+    },
+    {
+      "id": 9,
+      "question": "From the first days of Soviet power, Vahan Teryan became a close associate of which prominent political figure?",
+      "options": [
+        "Lenin",
+        "Stalin",
+        "Trotsky",
+        "Kerensky"
+      ],
+      "correct_index": 1,
+      "explanation": "He became a close associate of Stalin from the first days of Soviet power."
+    },
+    {
+      "id": 10,
+      "question": "In 1919, Vahan Teryan was assigned to go to Turkestan, but due to severe illness, he remained and eventually died in which city?",
+      "options": [
+        "Tiflis",
+        "Petersburg",
+        "Orenburg",
+        "Gandza"
+      ],
+      "correct_index": 2,
+      "explanation": "He was forced to stay in Orenburg due to severe illness, where he passed away on January 7, 1920."
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "quiz_code": "GJSG9N8V",
+  "topic": "lorik",
+  "language": "en",
+  "difficulty": "medium",
+  "created_at": "2026-03-01T07:57:24Z",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Vahan Teryan (Vahan Sukiasi Ter-Grigoryan) was primarily known as what?",
+      "options": [
+        "A renowned Armenian poet, lyricist, and public-political figure.",
+        "A prominent military general and strategist.",
+        "A famous painter and sculptor.",
+        "An influential scientist and inventor."
+      ],
+      "correct_index": 0,
+      "explanation": "The material states Vahan Teryan was a 'նշանավոր հայ բանաստեղծ, քնարերգու և հասարակական-քաղաքական գործիչ' (renowned Armenian poet, lyricist, and public-political figure)."
+    },
+    {
+      "id": 2,
+      "question": "What was the title of Vahan Teryan's first collection of works, published in Tiflis in 1908?",
+      "options": [
+        "\"Twilight Dreams\" (Մթնշաղի անուրջներ)",
+        "\"Land of Nairi\" (Երկիր Նաիրի)",
+        "\"Sparks\" (Կայծեր)",
+        "\"Evil Spirit\" (Չար ոգին)"
+      ],
+      "correct_index": 0,
+      "explanation": "The text mentions 'Տերյանի ստեղծագործությունների առաջին՝ «Մթնշաղի անուրջներ» ժողովածուն լույս է տեսել 1908 թվականին Թիֆլիսում'."
+    },
+    {
+      "id": 3,
+      "question": "Which publishing house did Vahan Teryan found in 1912 to engage in extensive book publishing and translation activities?",
+      "options": [
+        "\"Pantheon\" (Պանթեոն)",
+        "\"Mshak\" (Մշակ)",
+        "\"Hayastan\" (Հայաստան)",
+        "\"Lusaber\" (Լուսաբեր)"
+      ],
+      "correct_index": 0,
+      "explanation": "The material states '1912 թվականին հիմնադրել է «Պանթեոն» հրատարակչությունը'."
+    },
+    {
+      "id": 4,
+      "question": "Vahan Teryan participated in the signing of which significant peace treaty, holding a mandate signed by Lenin?",
+      "options": [
+        "The Treaty of Brest-Litovsk",
+        "The Treaty of Adrianople",
+        "The Treaty of Versailles",
+        "The Treaty of Paris"
+      ],
+      "correct_index": 0,
+      "explanation": "The text says 'Լենինի ստորագրությամբ մանդատով մասնակցել է Բրեստի խաղաղ պայմանագրի ստորագրմանը'."
+    },
+    {
+      "id": 5,
+      "question": "What severe illness began to manifest in Vahan Teryan in 1916, and where did he ultimately die due to it?",
+      "options": [
+        "Tuberculosis, Orenburg",
+        "Pneumonia, Tiflis",
+        "Cholera, Petersburg",
+        "Typhus, Ganza"
+      ],
+      "correct_index": 0,
+      "explanation": "The text mentions '1916 թվականին սկսել են նկատվել Վահանի կրծքում բուն դրած թոքախտի նշանները' (tuberculosis) and 'որտեղ և վախճանվել է 1920 թվականի հունվարի 7-ին' (Orenburg)."
+    },
+    {
+      "id": 6,
+      "question": "Vahan Teryan translated several Armenian literary works into Russian. Which of the following authors' works are mentioned as having been translated by him?",
+      "options": [
+        "Gabriel Sundukyan, Raffi, and Shirvanzade",
+        "Hovhannes Tumanyan, Avetik Isahakyan, and Yeghishe Charents",
+        "Khachatur Abovyan, Mikael Nalbandian, and Ghazaros Aghayan",
+        "Sayat-Nova, Komitas, and Daniel Varoujan"
+      ],
+      "correct_index": 0,
+      "explanation": "The material lists: 'Հայերենից ռուսերեն է թարգմանել Գաբրիել Սունդուկյանի «Պեպոն», Րաֆֆու «Կայծերի» առաջին հատորը, Շիրվանզադեի «Չար ոգին»'."
+    },
+    {
+      "id": 7,
+      "question": "Before settling in Ganza, Vahan Teryan's ancestors, who migrated from Erzurum after the 1828-1829 Russo-Turkish war, first established residence in which village?",
+      "options": [
+        "Diliska, Javakhk",
+        "Kars, Turkey",
+        "Akhaltsikhe, Georgia",
+        "Chamadura, Javakhk"
+      ],
+      "correct_index": 0,
+      "explanation": "The text states '1830 թվականի մայիս-հունիս ամիսներին Վահան Տերյանի նախնիները ևս գաղթել են և բնակություն հաստատել Ջավախքի Դիլիսկա գյուղում, իսկ Էրզրումում մնացած մյուս Տեր-Գրիգորյանները...'"
+    }
+  ]
+}

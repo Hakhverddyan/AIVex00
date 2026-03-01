@@ -1,0 +1,129 @@
+{
+  "quiz_code": "ZMR6WQUL",
+  "topic": "Վահան Տերյան",
+  "language": "en",
+  "difficulty": "medium",
+  "created_at": "2026-03-01T08:22:40Z",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What was Vahan Teryan's real name?",
+      "options": [
+        "Vahan Sukiasi Ter-Grigoryan",
+        "Vahan Hovhannesi Grigoryan",
+        "Vahan Armenaki Teryan",
+        "Vahan Stepanosyan"
+      ],
+      "correct_index": 0,
+      "explanation": "Vahan Teryan's real name was Vahan Sukiasi Ter-Grigoryan."
+    },
+    {
+      "id": 2,
+      "question": "What was the title of Vahan Teryan's first collection of works and when was it published?",
+      "options": [
+        "\"Land of Nairi\", 1915",
+        "\"Twilight Dreams\", 1908",
+        "\"Poetry of Armenia\", 1916",
+        "\"The Evil Spirit\", 1912"
+      ],
+      "correct_index": 1,
+      "explanation": "His first collection, \"Մթնշաղի անուրջներ\" (Twilight Dreams), was published in 1908."
+    },
+    {
+      "id": 3,
+      "question": "In what year did Vahan Teryan found the \"Pantheon\" publishing house?",
+      "options": [
+        "1908",
+        "1915",
+        "1912",
+        "1917"
+      ],
+      "correct_index": 2,
+      "explanation": "Vahan Teryan founded the \"Pantheon\" publishing house in 1912."
+    },
+    {
+      "id": 4,
+      "question": "Which of the following works did Vahan Teryan translate from Armenian to Russian?",
+      "options": [
+        "Raffi's \"Sparks\" (first volume)",
+        "Bryusov's \"Poetry of Armenia\"",
+        "Gorky's \"Collection of Armenian Literature\"",
+        "Teryan's \"Twilight Dreams\""
+      ],
+      "correct_index": 0,
+      "explanation": "He translated Raffi's \"Sparks\" (first volume), Sundukyan's \"Pepo\", and Shirvanzade's \"Evil Spirit\" from Armenian to Russian."
+    },
+    {
+      "id": 5,
+      "question": "Which of Vahan Teryan's patriotic poem series was published in the \"Mshak\" newspaper in 1915?",
+      "options": [
+        "\"Twilight Dreams\"",
+        "\"The Evil Spirit\"",
+        "\"Land of Nairi\"",
+        "\"Poetry of Armenia\""
+      ],
+      "correct_index": 2,
+      "explanation": "The patriotic poem series \"Երկիր Նաիրի\" (Land of Nairi) was published in the \"Mshak\" newspaper in 1915."
+    },
+    {
+      "id": 6,
+      "question": "What severe illness did Vahan Teryan suffer from, and where did he ultimately pass away?",
+      "options": [
+        "Heart disease, Petersburg",
+        "Pneumonia, Caucasus",
+        "Tuberculosis, Orenburg",
+        "Typhus, Tiflis"
+      ],
+      "correct_index": 2,
+      "explanation": "Vahan Teryan showed signs of tuberculosis in 1916 and died in Orenburg in 1920."
+    },
+    {
+      "id": 7,
+      "question": "From the early days of Soviet power, who was Vahan Teryan a close associate of?",
+      "options": [
+        "Lenin",
+        "Gorky",
+        "Stalin",
+        "Bryusov"
+      ],
+      "correct_index": 2,
+      "explanation": "From the first days of Soviet power, Vahan Teryan became a close associate of Stalin."
+    },
+    {
+      "id": 8,
+      "question": "Vahan Teryan participated in the signing of which significant peace treaty, under a mandate signed by Lenin?",
+      "options": [
+        "Treaty of Versailles",
+        "Brest Peace Treaty",
+        "Treaty of Tiflis",
+        "Treaty of Orenburg"
+      ],
+      "correct_index": 1,
+      "explanation": "He participated in the signing of the Brest Peace Treaty with Lenin's mandate."
+    },
+    {
+      "id": 9,
+      "question": "Vahan Teryan participated in the creation of \"Poetry of Armenia\" and \"Collection of Armenian Literature\" alongside which two prominent figures?",
+      "options": [
+        "Gabriel Sundukyan and Raffi",
+        "Valeri Bryusov and Maxim Gorky",
+        "Lenin and Stalin",
+        "Shirvanzade and Gorky"
+      ],
+      "correct_index": 1,
+      "explanation": "Vahan Teryan participated in the creation of these books alongside Valeri Bryusov and Maxim Gorky."
+    },
+    {
+      "id": 10,
+      "question": "When did Vahan Teryan pass away?",
+      "options": [
+        "January 28, 1885",
+        "February 9, 1920",
+        "January 7, 1920",
+        "January 7, 1919"
+      ],
+      "correct_index": 2,
+      "explanation": "Vahan Teryan passed away on January 7, 1920, in Orenburg."
+    }
+  ]
+}

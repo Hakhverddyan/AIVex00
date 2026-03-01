@@ -1,0 +1,129 @@
+{
+  "quiz_code": "NDPTVX5Z",
+  "topic": "lkti",
+  "language": "en",
+  "difficulty": "medium",
+  "created_at": "2026-03-01T10:40:33Z",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the exact string provided as the TOPIC?",
+      "options": [
+        "lkti",
+        "lkji",
+        "lkit",
+        "ktli"
+      ],
+      "correct_index": 0,
+      "explanation": "The topic provided was 'lkti'."
+    },
+    {
+      "id": 2,
+      "question": "How many characters are in the provided TOPIC string?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "correct_index": 1,
+      "explanation": "The TOPIC 'lkti' consists of 4 characters."
+    },
+    {
+      "id": 3,
+      "question": "Which of the following characters from the TOPIC 'lkti' is NOT present anywhere in the provided MATERIAL?",
+      "options": [
+        "k",
+        "i",
+        "t",
+        "j"
+      ],
+      "correct_index": 2,
+      "explanation": "The character 't' from the TOPIC 'lkti' is not found within the provided MATERIAL. ('k' and 'i' are present; 'j' is not from the topic)."
+    },
+    {
+      "id": 4,
+      "question": "What is the very first character of the provided MATERIAL?",
+      "options": [
+        "f",
+        "a",
+        "s",
+        "h"
+      ],
+      "correct_index": 1,
+      "explanation": "The material begins with the character 'a'."
+    },
+    {
+      "id": 5,
+      "question": "What is the very last character of the provided MATERIAL?",
+      "options": [
+        "a",
+        "m",
+        "f",
+        "k"
+      ],
+      "correct_index": 2,
+      "explanation": "The material ends with the character 'f'."
+    },
+    {
+      "id": 6,
+      "question": "How many distinct 'words' (sequences separated by spaces) are present in the provided MATERIAL?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "correct_index": 1,
+      "explanation": "Counting sequences separated by spaces, there are 5 'words' in the material: 'afadfzfafafsfafafsfasf', 'hafjhfafhjfvhjafna', 'afajfjafjifgajfgafgajfm', 'm', and 'gjagfkwhfjkshkf'."
+    },
+    {
+      "id": 7,
+      "question": "Which of the following exact character sequences is present in the provided MATERIAL?",
+      "options": [
+        "lkt",
+        "xyz",
+        "fza",
+        "pqr"
+      ],
+      "correct_index": 2,
+      "explanation": "The sequence 'fza' can be found within the material (specifically in 'afadfzfa'). The other options are not present."
+    },
+    {
+      "id": 8,
+      "question": "Is the complete TOPIC string 'lkti' present anywhere within the provided MATERIAL?",
+      "options": [
+        "Yes, it appears once.",
+        "Yes, it appears multiple times.",
+        "No, it is not present.",
+        "It is partially present, but not fully."
+      ],
+      "correct_index": 2,
+      "explanation": "The full string 'lkti' does not appear in the provided material."
+    },
+    {
+      "id": 9,
+      "question": "Which character appears more frequently in the provided MATERIAL: 'a' or 'f'?",
+      "options": [
+        "'a' appears more frequently.",
+        "'f' appears more frequently.",
+        "They appear with equal frequency.",
+        "Neither 'a' nor 'f' appear."
+      ],
+      "correct_index": 1,
+      "explanation": "By counting, the character 'f' appears 16 times, while 'a' appears 13 times in the material. Thus, 'f' appears more frequently."
+    },
+    {
+      "id": 10,
+      "question": "What is the approximate total number of characters in the entire provided MATERIAL (including spaces)?",
+      "options": [
+        "Less than 50",
+        "Between 50 and 70",
+        "Between 70 and 90",
+        "More than 90"
+      ],
+      "correct_index": 2,
+      "explanation": "The total character count of the material, including spaces, is 88 characters."
+    }
+  ]
+}

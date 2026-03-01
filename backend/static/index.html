@@ -1,0 +1,1293 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AIVex • AI Google Form Generator</title>
+
+    <!-- Base styles from existing project (glassmorphism, buttons, etc.) -->
+    <link rel="stylesheet" href="/static/styles.css" />
+
+    <!-- Tailwind CSS for rapid modern UI styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Tailwind configuration for custom futuristic brand colors
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["system-ui", "SF Pro Display", "Inter", "ui-sans-serif"],
+            },
+            colors: {
+              flux: {
+                50: "#F5F3FF",
+                100: "#EDE9FE",
+                500: "#A855F7",
+                600: "#7C3AED",
+                700: "#5B21B6",
+              },
+              ocean: {
+                400: "#38BDF8",
+                500: "#0EA5E9",
+              },
+            },
+            boxShadow: {
+              "neon-soft":
+                "0 0 40px rgba(56,189,248,0.35), 0 0 60px rgba(168,85,247,0.45)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- GSAP for high-end motion & scroll animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Page-specific futuristic styling -->
+    <style>
+      /* Global body overrides to feel like a premium futuristic app */
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
+      }
+
+      /* Light mode toggle state */
+      body.light {
+        color: #020617;
+        background: radial-gradient(
+            1200px 700px at 10% -10%,
+            rgba(129, 140, 248, 0.22) 0%,
+            rgba(248, 250, 252, 0) 55%
+          ),
+          radial-gradient(
+            1000px 800px at 90% 0%,
+            rgba(45, 212, 191, 0.28) 0%,
+            rgba(248, 250, 252, 0) 55%
+          ),
+          linear-gradient(180deg, #eef2ff 0%, #f9fafb 48%, #f1f5f9 100%);
+      }
+
+      /* Animated gradient layer behind everything */
+      .animated-gradient {
+        background: radial-gradient(
+            circle at 0% 0%,
+            rgba(56, 189, 248, 0.35),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 100% 0%,
+            rgba(168, 85, 247, 0.38),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 50% 100%,
+            rgba(16, 185, 129, 0.25),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            rgba(15, 23, 42, 1),
+            rgba(15, 23, 42, 1)
+          );
+        background-size: 160% 160%;
+        animation: gradientShift 22s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 0%;
+        }
+        50% {
+          background-position: 100% 100%;
+        }
+        100% {
+          background-position: 0% 0%;
+        }
+      }
+
+      /* Floating abstract orbs in the background */
+      .orb {
+        filter: blur(32px);
+        opacity: 0.55;
+        mix-blend-mode: screen;
+        animation: orbFloat 18s ease-in-out infinite alternate;
+      }
+
+      @keyframes orbFloat {
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        50% {
+          transform: translate3d(40px, -40px, 0) scale(1.08);
+        }
+        100% {
+          transform: translate3d(-20px, 20px, 0) scale(1.02);
+        }
+      }
+
+      /* Custom cursor glow effect */
+      .cursor-dot,
+      .cursor-glow {
+        position: fixed;
+        pointer-events: none;
+        border-radius: 999px;
+        transform: translate3d(-50%, -50%, 0);
+        z-index: 50;
+      }
+
+      .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: radial-gradient(circle, #e5e7eb 0, #e5e7eb 40%, transparent 60%);
+        mix-blend-mode: screen;
+      }
+
+      .cursor-glow {
+        width: 56px;
+        height: 56px;
+        background: radial-gradient(
+          circle,
+          rgba(56, 189, 248, 0.55),
+          rgba(168, 85, 247, 0.35),
+          transparent 70%
+        );
+        filter: blur(10px);
+        opacity: 0.0;
+        transition: opacity 0.25s ease-out;
+      }
+
+      @media (pointer: coarse) {
+        .cursor-dot,
+        .cursor-glow {
+          display: none;
+        }
+      }
+
+      /* Scroll reveal helpers */
+      .reveal-up {
+        opacity: 0;
+        transform: translateY(32px);
+        will-change: opacity, transform;
+      }
+
+      /* 3D tilt card */
+      .tilt-card {
+        transform-style: preserve-3d;
+        transform-origin: center center;
+        transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+          box-shadow 0.3s ease;
+      }
+
+      .tilt-card:hover {
+        box-shadow: 0 30px 120px rgba(15, 23, 42, 0.85),
+          0 0 60px rgba(56, 189, 248, 0.55);
+      }
+
+      /* Button ripple effect */
+      .ripple {
+        position: absolute;
+        border-radius: 999px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(248, 250, 252, 0.7), transparent 60%);
+        animation: rippleExpand 0.6s ease-out forwards;
+      }
+
+      @keyframes rippleExpand {
+        0% {
+          opacity: 0.75;
+          width: 0;
+          height: 0;
+        }
+        100% {
+          opacity: 0;
+          width: 260px;
+          height: 260px;
+        }
+      }
+
+      /* Confetti pieces */
+      .confetti-piece {
+        position: fixed;
+        width: 10px;
+        height: 18px;
+        border-radius: 4px;
+        opacity: 0.9;
+        z-index: 40;
+        pointer-events: none;
+        animation: confettiFall 1.8s cubic-bezier(0.25, 0.46, 0.45, 1) forwards;
+      }
+
+      @keyframes confettiFall {
+        0% {
+          transform: translate3d(0, -40px, 0) rotateZ(0deg);
+        }
+        100% {
+          transform: translate3d(0, 120vh, 0) rotateZ(720deg);
+          opacity: 0;
+        }
+      }
+
+      /* Scroll progress bar */
+      #scroll-progress {
+        transform-origin: 0 50%;
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
+    <!-- Floating gradient & particle background -->
+    <div class="fixed inset-0 -z-20 animated-gradient"></div>
+    <div class="bg">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="blob b3"></div>
+    </div>
+
+    <!-- Abstract colorful orbs -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div
+        class="orb absolute -left-40 top-10 h-72 w-72 rounded-full bg-gradient-to-br from-sky-400 via-flux-500 to-fuchsia-500 opacity-70"
+      ></div>
+      <div
+        class="orb absolute -right-32 top-40 h-80 w-80 rounded-full bg-gradient-to-br from-cyan-400 via-emerald-400 to-flux-600 opacity-70"
+      ></div>
+      <div
+        class="orb absolute left-1/2 bottom-[-120px] h-80 w-80 -translate-x-1/2 rounded-full bg-gradient-to-br from-flux-500 via-sky-500 to-indigo-500 opacity-80"
+      ></div>
+    </div>
+
+    <!-- Custom cursor glow -->
+    <div id="cursor-dot" class="cursor-dot"></div>
+    <div id="cursor-glow" class="cursor-glow"></div>
+
+    <!-- Scroll progress indicator -->
+    <div
+      id="scroll-progress"
+      class="fixed left-0 top-0 z-40 h-1 w-full bg-gradient-to-r from-fuchsia-500 via-sky-400 to-emerald-400"
+      style="transform: scaleX(0);"
+    ></div>
+
+    <!-- Toast placeholder (reuses existing styling) -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Shell -->
+    <div class="relative z-10">
+      <!-- Navigation bar -->
+      <header
+        class="sticky top-0 z-30 border-b border-white/5 bg-slate-950/70 backdrop-blur-xl"
+      >
+      <!-- Demo link (Top-Right only) -->
+<a
+  href="https://youtu.be/Z9JX2RYqD4Q"
+  target="_blank"
+  rel="noreferrer"
+  class="fixed right-5 top-24 z-40 hidden md:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-100 backdrop-blur hover:border-sky-300/70 hover:text-sky-200"
+>
+  ▶ Tutorial Video For Google Forms
+</a>
+        <div
+          class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8"
+        >
+          <!-- Logo & brand -->
+          <div class="flex items-center gap-3">
+            <div
+              class="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-tr from-fuchsia-500 via-sky-400 to-emerald-400 shadow-neon-soft"
+            >
+              <span class="text-lg font-black tracking-tight text-slate-900">
+                A
+              </span>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-display text-sm font-semibold tracking-[0.2em] uppercase bg-gradient-to-r from-sky-300 via-fuchsia-400 to-emerald-400 bg-clip-text text-transparent"
+                >AIVex</span
+              >
+              <span class="text-xs text-slate-400">AI Google Form Generator</span>
+            </div>
+          </div>
+
+          <!-- Desktop nav -->
+           
+          <nav class="hidden items-center gap-7 text-sm text-slate-200 md:flex">
+            <a href="#features" class="hover:text-sky-300 transition-colors">Features</a>
+            <a href="#generator" class="hover:text-sky-300 transition-colors"
+              >AI Form Studio</a
+            >
+            <button
+              id="goTeacher"
+              class="btn relative overflow-hidden rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-100 shadow-sm backdrop-blur hover:border-sky-300/70 hover:text-sky-200"
+            >
+              Teacher Mode
+            </button>
+            <button
+              id="goStudent"
+              class="btn relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-100 backdrop-blur hover:border-emerald-300/70 hover:text-emerald-200"
+            >
+              Student Access
+            </button>
+          </nav>
+
+          <!-- Right controls -->
+          <div class="flex items-center gap-3">
+            <!-- Theme toggle -->
+            <button
+              id="themeToggle"
+              class="group flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 shadow-sm backdrop-blur transition hover:border-sky-300/70 hover:text-sky-200"
+            >
+              <span
+                class="block text-lg leading-none group-[.light]:hidden"
+                aria-hidden="true"
+                >☾</span
+              >
+              <span
+                class="hidden text-base leading-none group-[.light]:block"
+                aria-hidden="true"
+                >☀</span
+              >
+              <span class="sr-only">Toggle theme</span>
+            </button>
+
+            <!-- Mobile menu button -->
+            <button
+              id="mobileMenuToggle"
+              class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-100 shadow-sm backdrop-blur transition hover:border-sky-300/70 hover:text-sky-200 md:hidden"
+            >
+              <span class="sr-only">Open navigation</span>
+              <span class="h-3.5 w-3.5">
+                <span
+                  class="block h-0.5 w-3.5 translate-y-[3px] rounded-full bg-slate-100 transition"
+                ></span>
+                <span
+                  class="block h-0.5 w-3.5 rounded-full bg-slate-100 transition"
+                ></span>
+                <span
+                  class="block h-0.5 w-3.5 -translate-y-[3px] rounded-full bg-slate-100 transition"
+                ></span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile menu -->
+         
+        <div
+          id="mobileMenu"
+          class="origin-top scale-y-0 transform border-t border-white/5 bg-slate-950/95 px-4 py-3 text-sm text-slate-100 shadow-xl shadow-black/50 backdrop-blur-xl md:hidden"
+        >
+          <nav class="flex flex-col gap-2">
+            <a href="#features" class="rounded-lg px-2 py-1.5 hover:bg-white/5"
+              >Features</a
+            >
+            <a href="#generator" class="rounded-lg px-2 py-1.5 hover:bg-white/5"
+              >AI Form Studio</a
+            >
+            <button
+              id="mobileTeacher"
+              class="mt-1 flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-2 py-1.5 text-xs font-semibold uppercase tracking-[0.18em]"
+            >
+              Teacher Mode
+              <span class="text-[10px] text-sky-300">Dashboard</span>
+            </button>
+            <button
+              id="mobileStudent"
+              class="mt-1 flex items-center justify-between rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-2 py-1.5 text-xs font-semibold uppercase tracking-[0.18em]"
+            >
+              Student Access
+              <span class="text-[10px] text-emerald-300">Join</span>
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="mx-auto max-w-6xl px-4 pb-20 pt-10 sm:px-6 lg:px-8 lg:pt-16">
+        <!-- Hero section with typewriter and 3D scene -->
+        <section
+          class="relative grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center"
+        >
+          <!-- Hero text -->
+          <div class="reveal-up space-y-8" data-hero-anim>
+            <div
+              class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.3em] text-sky-200/90 shadow-sm shadow-black/40 backdrop-blur"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_0_6px_rgba(74,222,128,0.35)]"></span>
+              AI-POWERED GOOGLE FORM STUDIO
+            </div>
+
+            <div class="space-y-4">
+              <h1
+                class="font-display text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+              >
+                Turn Any Text Into
+                <span class="bg-gradient-to-r from-sky-400 via-flux-500 to-fuchsia-500 bg-clip-text text-transparent"
+                  >Smart AI Forms</span
+                >
+                Instantly
+              </h1>
+              <p class="max-w-xl text-sm text-slate-300 sm:text-base">
+                Describe the form you imagine—quizzes, exit tickets, surveys, peer
+                reviews—and let our AI architect build a polished
+                <span class="font-semibold text-sky-300">Google Form</span> for you in
+                seconds.
+              </p>
+            </div>
+
+            <!-- Dynamic typewriter line -->
+            <p
+              class="text-xs font-medium uppercase tracking-[0.28em] text-slate-400 sm:text-[11px]"
+            >
+              <span class="text-sky-300">AIVex</span> is designing:
+              <span id="typewriter" class="text-emerald-300"></span>
+              <span class="inline-block h-[1em] w-[6px] translate-y-[2px] bg-emerald-300"></span>
+            </p>
+
+            <!-- CTAs -->
+            <div class="flex flex-wrap items-center gap-4">
+              <a
+                href="#generator"
+                id="primaryGenerateCta"
+                class="btn primary relative inline-flex items-center gap-3 rounded-2xl border border-sky-400/60 bg-gradient-to-r from-sky-400 via-flux-500 to-fuchsia-500 px-5 py-3 text-sm font-semibold tracking-wide text-slate-950 shadow-neon-soft"
+              >
+                <span>Generate Now</span>
+                <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-950/20 text-xs"
+                  >↗</span
+                >
+              </a>
+
+              <button
+                id="secondaryTeacherCta"
+                class="btn inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 backdrop-blur hover:border-sky-300/70 hover:text-sky-200"
+              >
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-sky-500/20 text-sky-300"
+                  >🧑‍🏫</span
+                >
+                Open Teacher Dashboard
+              </button>
+            </div>
+
+            <!-- Teacher / student quick hints -->
+            <div
+              class="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-400 sm:text-xs"
+            >
+              <div
+                class="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-3 py-1"
+              >
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                Students join with a code—no account needed.
+              </div>
+              <div
+                class="inline-flex items-center gap-2 rounded-full border border-fuchsia-400/40 bg-fuchsia-500/10 px-3 py-1"
+              >
+                <span class="h-1.5 w-1.5 rounded-full bg-fuchsia-400"></span>
+                Teachers see live analytics & submissions.
+              </div>
+            </div>
+          </div>
+
+          <!-- Futuristic 3D visual -->
+          <div
+            class="reveal-up relative mx-auto max-w-md rounded-3xl border border-white/10 bg-slate-900/60 p-5 shadow-2xl shadow-black/70 backdrop-blur-2xl tilt-card"
+            data-tilt
+          >
+            <div
+              class="pointer-events-none absolute -left-20 top-10 h-40 w-40 rounded-full bg-gradient-to-br from-sky-500/80 to-flux-500/60 blur-3xl"
+            ></div>
+            <div
+              class="pointer-events-none absolute -right-16 bottom-6 h-36 w-36 rounded-full bg-gradient-to-br from-emerald-400/80 to-sky-500/60 blur-3xl"
+            ></div>
+
+            <!-- AI core -->
+            <div
+              class="relative mb-5 flex items-center justify-between rounded-2xl border border-white/10 bg-slate-900/80 px-4 py-3"
+            >
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.25em] text-slate-400">
+                  AI ENGINE
+                </p>
+                <p class="text-sm font-semibold text-slate-50">
+                  Form Intent Understanding
+                </p>
+              </div>
+              <div
+                class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-400 via-flux-500 to-fuchsia-500 text-lg text-slate-950 shadow-neon-soft"
+              >
+                ⚡
+              </div>
+            </div>
+
+            <!-- Stacked cards for Teacher & Student -->
+            <div class="space-y-3">
+              <div
+                class="flex items-center justify-between rounded-2xl border border-sky-500/40 bg-sky-500/8 px-4 py-3"
+              >
+                <div>
+                  <p class="text-xs font-semibold text-sky-200">Teacher Mode</p>
+                  <p class="text-[11px] text-sky-100/80">
+                    Auto-generates Google Forms from rich descriptions.
+                  </p>
+                </div>
+                <div class="flex items-center gap-1 text-[10px] text-sky-200/80">
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                  LIVE
+                </div>
+              </div>
+              <div
+                class="flex items-center justify-between rounded-2xl border border-emerald-400/40 bg-emerald-500/8 px-4 py-3"
+              >
+                <div>
+                  <p class="text-xs font-semibold text-emerald-200">Student Mode</p>
+                  <p class="text-[11px] text-emerald-100/85">
+                    One-tap joining with secure access codes.
+                  </p>
+                </div>
+                <div class="flex items-center gap-1 text-[10px] text-emerald-200/80">
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                  READY
+                </div>
+              </div>
+            </div>
+
+            <!-- Mini stat pulse -->
+            <div
+              class="mt-4 grid grid-cols-3 gap-2 rounded-2xl border border-white/10 bg-slate-900/80 px-3 py-3 text-[11px] text-slate-300"
+            >
+              <div class="space-y-1">
+                <p class="text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                  Generated
+                </p>
+                <p
+                  id="statGenerated"
+                  class="text-base font-semibold text-slate-50"
+                  data-animate-counter
+                  data-target="1284"
+                >
+                  0
+                </p>
+              </div>
+              <div class="space-y-1">
+                <p class="text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                  Time Saved
+                </p>
+                <p
+                  id="statMinutes"
+                  class="text-base font-semibold text-slate-50"
+                  data-animate-counter
+                  data-target="642"
+                >
+                  0
+                </p>
+              </div>
+              <div class="space-y-1">
+                <p class="text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                  Countries
+                </p>
+                <p
+                  id="statCountries"
+                  class="text-base font-semibold text-slate-50"
+                  data-animate-counter
+                  data-target="26"
+                >
+                  0
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Features section -->
+        <section id="features" class="mt-20 space-y-10">
+          <div class="reveal-up text-center">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.28em] text-sky-300/90"
+            >
+              BUILT FOR CLASSROOM MAGIC
+            </p>
+            <h2
+              class="mt-3 font-display text-2xl font-bold tracking-tight text-slate-50 sm:text-3xl"
+            >
+              Everything you need to spin up brilliant forms in seconds
+            </h2>
+          </div>
+
+          <div
+            class="reveal-up grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+            data-animate-grid
+          >
+            <!-- Feature cards -->
+            <article
+              class="tilt-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/60 backdrop-blur-xl"
+            >
+              <div
+                class="pointer-events-none absolute -right-16 top-0 h-32 w-32 rounded-full bg-gradient-to-br from-flux-500/50 to-sky-400/40 opacity-70 blur-3xl transition-transform duration-500 group-hover:translate-x-6"
+              ></div>
+              <div class="relative space-y-3">
+                <span
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-sky-500/15 text-lg"
+                  >🤖</span
+                >
+                <h3 class="text-sm font-semibold text-slate-50">
+                  AI-Powered Form Creation
+                </h3>
+                <p class="text-xs text-slate-300">
+                  Turn natural language prompts into structured Google Forms with
+                  smart sections, branching, and validation.
+                </p>
+              </div>
+            </article>
+
+            <article
+              class="tilt-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/60 backdrop-blur-xl"
+            >
+              <div
+                class="pointer-events-none absolute -left-16 -top-6 h-32 w-32 rounded-full bg-gradient-to-br from-emerald-400/40 to-sky-400/40 opacity-70 blur-3xl transition-transform duration-500 group-hover:-translate-y-5"
+              ></div>
+              <div class="relative space-y-3">
+                <span
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-emerald-500/15 text-lg"
+                  >⚡</span
+                >
+                <h3 class="text-sm font-semibold text-slate-50">
+                  Instant Google Forms Generation
+                </h3>
+                <p class="text-xs text-slate-300">
+                  Get a ready-to-share Google Form link—no manual building, no copy
+                  pasting, just share and teach.
+                </p>
+              </div>
+            </article>
+
+            <article
+              class="tilt-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/60 backdrop-blur-xl"
+            >
+              <div
+                class="pointer-events-none absolute -right-20 bottom-0 h-32 w-32 rounded-full bg-gradient-to-br from-fuchsia-500/50 to-flux-500/40 opacity-70 blur-3xl transition-transform duration-500 group-hover:-translate-y-4"
+              ></div>
+              <div class="relative space-y-3">
+                <span
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-fuchsia-500/15 text-lg"
+                  >📊</span
+                >
+                <h3 class="text-sm font-semibold text-slate-50">
+                  Teacher Mode Dashboard
+                </h3>
+                <p class="text-xs text-slate-300">
+                  Secure, password-protected control center for generation, analytics,
+                  and student insights.
+                </p>
+              </div>
+            </article>
+
+            <article
+              class="tilt-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/60 backdrop-blur-xl"
+            >
+              <div
+                class="pointer-events-none absolute -left-14 bottom-0 h-32 w-32 rounded-full bg-gradient-to-br from-sky-400/50 to-emerald-400/40 opacity-70 blur-3xl transition-transform duration-500 group-hover:translate-x-4"
+              ></div>
+              <div class="relative space-y-3">
+                <span
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-emerald-500/15 text-lg"
+                  >🎓</span
+                >
+                <h3 class="text-sm font-semibold text-slate-50">
+                  Student Mode Access
+                </h3>
+                <p class="text-xs text-slate-300">
+                  Beautiful, distraction-free experience where students join with a
+                  single code and stay focused on learning.
+                </p>
+              </div>
+            </article>
+
+            <article
+              class="tilt-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/60 backdrop-blur-xl"
+            >
+              <div
+                class="pointer-events-none absolute -right-10 top-0 h-32 w-32 rounded-full bg-gradient-to-br from-orange-400/50 to-fuchsia-400/40 opacity-70 blur-3xl transition-transform duration-500 group-hover:translate-y-3"
+              ></div>
+              <div class="relative space-y-3">
+                <span
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-orange-500/15 text-lg"
+                  >✏️</span
+                >
+                <h3 class="text-sm font-semibold text-slate-50">
+                  Real-Time Editing
+                </h3>
+                <p class="text-xs text-slate-300">
+                  Iterate on your form description and instantly preview updated
+                  structures, questions, and branching.
+                </p>
+              </div>
+            </article>
+
+            <article
+              class="tilt-card group relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/60 backdrop-blur-xl"
+            >
+              <div
+                class="pointer-events-none absolute -left-20 top-4 h-32 w-32 rounded-full bg-gradient-to-br from-emerald-400/50 to-sky-400/40 opacity-70 blur-3xl transition-transform duration-500 group-hover:translate-y-3"
+              ></div>
+              <div class="relative space-y-3">
+                <span
+                  class="inline-flex h-8 w-8 items-center justify-center rounded-2xl bg-emerald-500/15 text-lg"
+                  >🔐</span
+                >
+                <h3 class="text-sm font-semibold text-slate-50">Secure & Fast</h3>
+                <p class="text-xs text-slate-300">
+                  Password-protected teacher flows, secure student submissions, and
+                  performance tuned for low-end devices.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Main AI form generator studio -->
+        <section id="generator" class="mt-20 grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.9fr)]">
+          <!-- Left: interactive studio -->
+          
+        
+
+            
+
+            <!-- Progress / status -->
+            <div class="mt-4 space-y-2">
+              <div class="h-1.5 w-full rounded-full bg-slate-800/80">
+                <div
+                  id="generationProgress"
+                  class="h-1.5 w-0 rounded-full bg-gradient-to-r from-sky-400 via-flux-500 to-fuchsia-500"
+                ></div>
+              </div>
+              <p
+                id="generationStatus"
+                class="min-h-[1.25rem] text-xs text-slate-300"
+              ></p>
+            </div>
+
+            <!-- Success panel -->
+            <div
+              id="generationResult"
+              class="mt-4 hidden rounded-2xl border border-emerald-400/60 bg-emerald-500/10 p-4 text-sm text-emerald-100 shadow-lg shadow-emerald-500/20"
+            >
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3">
+                  <div
+                    class="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-2xl bg-emerald-400/90 text-slate-950"
+                  >
+                    ✓
+                  </div>
+                  <div>
+                    <p class="font-semibold text-emerald-50">
+                      Your AI-generated Google Form is ready!
+                    </p>
+                    <p class="mt-1 text-xs text-emerald-100/90">
+                      Share this link with your class or paste it into your LMS. We’ve
+                      also generated a matching Apps Script template in Teacher Mode.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="mt-3 flex flex-col gap-2 rounded-xl bg-slate-950/60 p-3 text-xs text-slate-100"
+              >
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-slate-400">Google Form link:</span>
+                  <a
+                    id="generatedFormLink"
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                    class="break-all font-mono text-[11px] text-sky-300 underline-offset-2 hover:underline"
+                  ></a>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <button
+                    id="copyFormLink"
+                    class="btn inline-flex items-center gap-1 rounded-xl border border-emerald-400/60 bg-emerald-500/10 px-3 py-1.5 text-[11px] font-semibold text-emerald-100"
+                  >
+                    Copy link
+                  </button>
+                  <span
+                    id="copyFormLinkStatus"
+                    class="text-[11px] text-emerald-200/90"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: How it works timeline -->
+          <div class="reveal-up space-y-6">
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-400"
+              >
+                HOW IT WORKS
+              </p>
+              <h3 class="mt-1 text-base font-semibold text-slate-50 sm:text-lg">
+                From blurry idea to live Google Form in three steps.
+              </h3>
+            </div>
+
+            <ol class="space-y-4 text-sm text-slate-200">
+              <li class="flex gap-3">
+                <div
+                  class="mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-2xl bg-sky-500/20 text-xs font-semibold text-sky-300"
+                >
+                  1
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-50">Describe the outcome.</p>
+                  <p class="text-xs text-slate-300">
+                    Tell AIVex what you want to measure or collect—learning goals,
+                    feedback, attendance, reflections.
+                  </p>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <div
+                  class="mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-2xl bg-flux-500/20 text-xs font-semibold text-flux-300"
+                >
+                  2
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-50">
+                    Our AI designs the form.
+                  </p>
+                  <p class="text-xs text-slate-300">
+                    We generate questions, sections, branching, and validation rules
+                    tailored to your description and class level.
+                  </p>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <div
+                  class="mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-500/20 text-xs font-semibold text-emerald-300"
+                >
+                  3
+                </div>
+                <div>
+                  <p class="font-semibold text-slate-50">
+                    Share your Google Form instantly.
+                  </p>
+                  <p class="text-xs text-slate-300">
+                    Copy the link, push to Google Classroom, or dive into Teacher Mode
+                    for deeper analytics and Apps Script exports.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Bottom meta -->
+        <section class="mt-16 flex flex-wrap items-center justify-between gap-4">
+          <div class="text-[11px] text-slate-400">
+            <p>
+              Built for classrooms that think like
+              <span class="text-sky-300">startups</span>.
+            </p>
+            <p class="mt-1">
+              Backed by an AI engine optimized for
+              <span class="text-emerald-300">education workflows</span>.
+            </p>
+          </div>
+          <div class="flex gap-3 text-[11px] text-slate-400">
+            <div
+              class="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              <span>API status:</span>
+              <a
+                href="/api/health"
+                class="font-semibold text-emerald-300 underline-offset-2 hover:underline"
+                >/api/health</a
+              >
+            </div>
+            <div
+              class="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1"
+            >
+              <span>Languages:</span>
+              <span class="font-medium text-slate-100">Հայերեն / English / Русский</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer class="border-t border-white/5 bg-slate-950/80 py-4 text-center">
+        <p class="text-[11px] text-slate-500">
+          Made with AIVex. Designed to make teachers say:
+          <span class="text-sky-300 font-semibold">“WOW. How did students build this?”</span>
+        </p>
+      </footer>
+    </div>
+
+    <!-- Existing navigation behavior & subtle pointer glow -->
+    <script src="/static/app_index.js"></script>
+
+    <!-- Page-specific animation and interaction logic -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        // Theme toggle (dark as default)
+        const body = document.body;
+        const themeToggle = document.getElementById("themeToggle");
+        let isLight = false;
+        if (themeToggle) {
+          themeToggle.addEventListener("click", () => {
+            isLight = !isLight;
+            body.classList.toggle("light", isLight);
+          });
+        }
+
+        // Mobile menu
+        const mobileToggle = document.getElementById("mobileMenuToggle");
+        const mobileMenu = document.getElementById("mobileMenu");
+        if (mobileToggle && mobileMenu) {
+          mobileToggle.addEventListener("click", () => {
+            const isOpen = mobileMenu.style.transform === "scaleY(1)";
+            mobileMenu.style.transform = isOpen ? "scaleY(0)" : "scaleY(1)";
+          });
+        }
+
+        // Wire mobile teacher/student buttons to existing navigation logic
+        const mobileTeacher = document.getElementById("mobileTeacher");
+        const mobileStudent = document.getElementById("mobileStudent");
+        if (mobileTeacher) {
+          mobileTeacher.addEventListener("click", () => {
+            window.location.href = "/teacher";
+          });
+        }
+        if (mobileStudent) {
+          mobileStudent.addEventListener("click", () => {
+            window.location.href = "/student";
+          });
+        }
+
+        // Hero CTA shortcuts to scroll / teacher
+        const primaryGenerateCta = document.getElementById("primaryGenerateCta");
+        if (primaryGenerateCta) {
+          primaryGenerateCta.addEventListener("click", (e) => {
+            e.preventDefault();
+            document.getElementById("generator")?.scrollIntoView({
+              behavior: "smooth",
+            });
+          });
+        }
+        const secondaryTeacherCta = document.getElementById("secondaryTeacherCta");
+        if (secondaryTeacherCta) {
+          secondaryTeacherCta.addEventListener("click", () => {
+            window.location.href = "/teacher";
+          });
+        }
+
+        // Custom cursor tracking
+        const cursorDot = document.getElementById("cursor-dot");
+        const cursorGlow = document.getElementById("cursor-glow");
+        if (cursorDot && cursorGlow && !prefersReducedMotion) {
+          window.addEventListener("pointermove", (event) => {
+            const { clientX, clientY } = event;
+            cursorGlow.style.opacity = "1";
+            gsap.to(cursorDot, {
+              x: clientX,
+              y: clientY,
+              duration: 0.12,
+              ease: "power2.out",
+            });
+            gsap.to(cursorGlow, {
+              x: clientX,
+              y: clientY,
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          });
+        }
+
+        // Scroll progress indicator
+        const scrollProgress = document.getElementById("scroll-progress");
+        if (scrollProgress && !prefersReducedMotion) {
+          const updateProgress = () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const docHeight =
+              document.documentElement.scrollHeight -
+              document.documentElement.clientHeight;
+            const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+            scrollProgress.style.transform = `scaleX(${progress})`;
+          };
+          updateProgress();
+          window.addEventListener("scroll", updateProgress, { passive: true });
+        }
+
+        if (!prefersReducedMotion && window.gsap) {
+          gsap.registerPlugin(ScrollTrigger);
+
+          // Reveal on scroll
+          gsap.utils.toArray(".reveal-up").forEach((el) => {
+            gsap.fromTo(
+              el,
+              { y: 40, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.9,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 80%",
+                },
+              }
+            );
+          });
+
+          // Stats counters
+          gsap.utils.toArray("[data-animate-counter]").forEach((el) => {
+            const target = parseInt(el.getAttribute("data-target") || "0", 10);
+            const obj = { value: 0 };
+            gsap.to(obj, {
+              value: target,
+              duration: 1.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 80%",
+                once: true,
+              },
+              onUpdate: () => {
+                el.textContent = Math.round(obj.value).toLocaleString();
+              },
+            });
+          });
+        }
+
+        // 3D tilt cards
+        document.querySelectorAll("[data-tilt]").forEach((card) => {
+          const strength = 10;
+          card.addEventListener("pointermove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            const rotateX = y * -strength;
+            const rotateY = x * strength;
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0,0,0)`;
+          });
+          card.addEventListener("pointerleave", () => {
+            card.style.transform = "";
+          });
+        });
+
+        // Button ripple effect
+        document.querySelectorAll(".btn").forEach((btn) => {
+          btn.addEventListener("click", (event) => {
+            const rect = btn.getBoundingClientRect();
+            const ripple = document.createElement("span");
+            ripple.className = "ripple";
+            ripple.style.left = `${event.clientX - rect.left}px`;
+            ripple.style.top = `${event.clientY - rect.top}px`;
+            btn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+          });
+        });
+
+        // Typewriter effect
+        const typewriter = document.getElementById("typewriter");
+        const typePhrases = [
+          "Exit tickets with automatic grading",
+          "Peer feedback forms for group projects",
+          "Parent communication surveys in 3 languages",
+          "Lab check-ins with differentiated questions",
+        ];
+        if (typewriter) {
+          let index = 0;
+          let charIndex = 0;
+          let deleting = false;
+
+          const cycle = () => {
+            const phrase = typePhrases[index];
+            if (!deleting) {
+              charIndex++;
+              if (charIndex >= phrase.length) {
+                deleting = true;
+                setTimeout(cycle, 1300);
+                typewriter.textContent = phrase;
+                return;
+              }
+            } else {
+              charIndex--;
+              if (charIndex <= 0) {
+                deleting = false;
+                index = (index + 1) % typePhrases.length;
+                setTimeout(cycle, 320);
+                typewriter.textContent = "";
+                return;
+              }
+            }
+            typewriter.textContent = phrase.slice(0, charIndex);
+            setTimeout(cycle, deleting ? 40 : 60);
+          };
+          cycle();
+        }
+
+        // AI generator interactions
+        const modeTeacher = document.getElementById("modeTeacher");
+        const modeStudent = document.getElementById("modeStudent");
+        let activeMode = "teacher";
+
+        function setMode(mode) {
+          activeMode = mode;
+          if (modeTeacher && modeStudent) {
+            modeTeacher.dataset.active = mode === "teacher";
+            modeStudent.dataset.active = mode === "student";
+          }
+        }
+
+        modeTeacher?.addEventListener("click", () => setMode("teacher"));
+        modeStudent?.addEventListener("click", () => setMode("student"));
+
+        const descriptionEl = document.getElementById("formDescription");
+        const generateBtn = document.getElementById("generateFormButton");
+        const surpriseBtn = document.getElementById("surpriseMe");
+        const progressEl = document.getElementById("generationProgress");
+        const statusEl = document.getElementById("generationStatus");
+        const resultEl = document.getElementById("generationResult");
+        const linkEl = document.getElementById("generatedFormLink");
+        const copyBtn = document.getElementById("copyFormLink");
+        const copyStatusEl = document.getElementById("copyFormLinkStatus");
+
+        const surprisePrompts = [
+          "A 5-minute entry ticket asking students to rate yesterday's lesson, share one thing they remember, and one question they still have.",
+          "A project peer review form with criteria for collaboration, contribution, creativity, and communication, using 1–5 rating scales and short explanations.",
+          "A multiple-choice math quiz on linear equations with 8 questions, including two word problems and automatic scoring.",
+          "A reflection form for a history documentary where students pick the most surprising fact, rate the video, and write a two-sentence takeaway.",
+        ];
+
+        if (surpriseBtn && descriptionEl) {
+          surpriseBtn.addEventListener("click", () => {
+            const next =
+              surprisePrompts[Math.floor(Math.random() * surprisePrompts.length)];
+            descriptionEl.value = next;
+            descriptionEl.focus();
+          });
+        }
+
+        let generating = false;
+        function launchConfetti() {
+          const colors = [
+            "#38BDF8",
+            "#A855F7",
+            "#F97316",
+            "#22C55E",
+            "#EAB308",
+            "#F472B6",
+          ];
+          const pieces = 90;
+          for (let i = 0; i < pieces; i++) {
+            const piece = document.createElement("div");
+            piece.className = "confetti-piece";
+            piece.style.left = Math.random() * 100 + "vw";
+            piece.style.backgroundColor = colors[i % colors.length];
+            piece.style.animationDelay = (Math.random() * 0.6).toFixed(2) + "s";
+            piece.style.transform = `translate3d(0,-40px,0) rotateZ(${
+              Math.random() * 360
+            }deg)`;
+            document.body.appendChild(piece);
+            setTimeout(() => piece.remove(), 2400);
+          }
+        }
+
+        async function fakeGenerate() {
+          if (!descriptionEl || !generateBtn || !progressEl || !statusEl) return;
+          const description = descriptionEl.value.trim();
+          if (!description) {
+            statusEl.textContent = "Describe your form first so the AI knows what to build.";
+            return;
+          }
+          if (generating) return;
+          generating = true;
+          generateBtn.disabled = true;
+          generateBtn.classList.add("loading");
+          copyStatusEl && (copyStatusEl.textContent = "");
+          statusEl.textContent = "Understanding your prompt and sketching the form blueprint…";
+          progressEl.style.width = "0%";
+          resultEl?.classList.add("hidden");
+
+          if (!prefersReducedMotion && window.gsap) {
+            gsap.to(progressEl, {
+              width: "100%",
+              duration: 1.8,
+              ease: "power2.out",
+            });
+          } else {
+            progressEl.style.width = "100%";
+          }
+
+          await new Promise((resolve) => setTimeout(resolve, 1800));
+
+          const slug = description
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)+/g, "")
+            .slice(0, 40);
+          const pseudoCode = Math.random().toString(36).slice(2, 7).toUpperCase();
+          const url = `https://forms.gle/${pseudoCode}-${slug || "ai-form"}`;
+
+          if (linkEl) {
+            linkEl.href = url;
+            linkEl.textContent = url;
+          }
+          if (statusEl) {
+            statusEl.textContent =
+              activeMode === "teacher"
+                ? "Form generated. Share the link below or refine it in Teacher Mode."
+                : "Student-ready Google Form generated. Share the link with your class.";
+          }
+          if (resultEl) {
+            resultEl.classList.remove("hidden");
+            if (!prefersReducedMotion && window.gsap) {
+              gsap.fromTo(
+                resultEl,
+                { y: 16, opacity: 0, scale: 0.98 },
+                { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "power3.out" }
+              );
+            }
+          }
+
+          launchConfetti();
+          generating = false;
+          generateBtn.disabled = false;
+          generateBtn.classList.remove("loading");
+        }
+
+        generateBtn?.addEventListener("click", (e) => {
+          e.preventDefault();
+          fakeGenerate();
+        });
+
+        copyBtn?.addEventListener("click", async () => {
+          if (!linkEl || !navigator.clipboard) return;
+          const url = linkEl.textContent || "";
+          if (!url) return;
+          try {
+            await navigator.clipboard.writeText(url);
+            if (copyStatusEl) {
+              copyStatusEl.textContent = "Copied!";
+              setTimeout(() => {
+                copyStatusEl.textContent = "";
+              }, 2200);
+            }
+          } catch (err) {
+            if (copyStatusEl) {
+              copyStatusEl.textContent = "Copy not allowed in this browser.";
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+
