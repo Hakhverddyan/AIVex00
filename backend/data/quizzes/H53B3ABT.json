@@ -1,0 +1,129 @@
+{
+  "quiz_code": "H53B3ABT",
+  "topic": "ssasasss",
+  "language": "en",
+  "difficulty": "medium",
+  "created_at": "2026-03-01T15:11:19Z",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following describes the correct error handling for the `divide_and_add(a, b, c)` function if `b` is 0?",
+      "options": [
+        "It returns the string \"DIVISION_BY_ZERO\".",
+        "It raises a `TypeError`.",
+        "It returns `None`.",
+        "It crashes the program."
+      ],
+      "correct_index": 0,
+      "explanation": "According to the material, if `b == 0`, the `divide_and_add` function should return the string \"DIVISION_BY_ZERO\"."
+    },
+    {
+      "id": 2,
+      "question": "What is the expected behavior of the `safe_read(path)` function if the file specified by `path` does not exist?",
+      "options": [
+        "It raises a `FileNotFoundError`.",
+        "It returns the string \"FILE_NOT_FOUND\".",
+        "It returns an empty string.",
+        "It returns `None`."
+      ],
+      "correct_index": 1,
+      "explanation": "The material states that if the file does not exist, `safe_read` should return \"FILE_NOT_FOUND\" and not crash."
+    },
+    {
+      "id": 3,
+      "question": "In the `math_utils.py` module, what should the `div(a, b)` function return if `b` is zero?",
+      "options": [
+        "It should raise a `ZeroDivisionError`.",
+        "It should return `0`.",
+        "It should return the string \"Division by zero\".",
+        "It should return `None`."
+      ],
+      "correct_index": 2,
+      "explanation": "The material explicitly states that for division by zero, `div(a, b)` should return the string \"Division by zero\"."
+    },
+    {
+      "id": 4,
+      "question": "A `Student` object (from 01 Feb) has a list of grades. How does its `get_average()` method calculate the average?",
+      "options": [
+        "It sums all grades and divides by the number of grades.",
+        "It returns the highest grade in the list.",
+        "It calculates the average of the first five grades.",
+        "It sums the grades and returns the total without division."
+      ],
+      "correct_index": 0,
+      "explanation": "The `get_average()` method is specified to return the average of the grades list, which is typically calculated by summing and dividing by the count."
+    },
+    {
+      "id": 5,
+      "question": "What defines a Toeplitz Matrix according to the provided material?",
+      "options": [
+        "All elements in the first row and first column are identical.",
+        "All diagonal elements from top-left to bottom-right have the same value.",
+        "It's a square matrix where all elements are positive.",
+        "The sum of elements in each row is equal to the sum of elements in each column."
+      ],
+      "correct_index": 1,
+      "explanation": "A Toeplitz matrix is defined as one where any diagonal taken from top-left to bottom-right has the same values."
+    },
+    {
+      "id": 6,
+      "question": "For the `CoffeeMachine` class (08 Feb), what are the conditions for the `can_make_cup()` method to return `True`?",
+      "options": [
+        "Water supply is at least 15ml and bean supply is at least 200g.",
+        "Water supply is exactly 200ml and bean supply is exactly 15g.",
+        "Water supply is at least 200ml and bean supply is at least 15g.",
+        "Water supply or bean supply is greater than zero."
+      ],
+      "correct_index": 2,
+      "explanation": "The `can_make_cup()` method returns `True` if `water >= 200` and `beans >= 15`."
+    },
+    {
+      "id": 7,
+      "question": "What are the valid temperature boundaries for the `Thermostat` class (08 Feb)?",
+      "options": [
+        "Any integer between 0 and 100, inclusive.",
+        "Any integer between 10 and 30, inclusive.",
+        "Temperatures can go below 10 but not above 30.",
+        "Temperatures can go above 30 but not below 10."
+      ],
+      "correct_index": 1,
+      "explanation": "The temperature attribute of the `Thermostat` class must always be within the range of 10 to 30, inclusive."
+    },
+    {
+      "id": 8,
+      "question": "In the `CartItem` class (15 Feb), which of the following validation rules apply to its properties?",
+      "options": [
+        "Price must be greater than 0, quantity must be greater than or equal to 1.",
+        "Price must be non-negative, quantity must be positive.",
+        "Price can be 0, quantity must be greater than 1.",
+        "Both price and quantity must be positive integers."
+      ],
+      "correct_index": 0,
+      "explanation": "The material specifies that `price > 0` and `quantity >= 1` for a `CartItem`."
+    },
+    {
+      "id": 9,
+      "question": "Regarding the `id` attribute in the `Person` class (March 1), what is its characteristic?",
+      "options": [
+        "It must be a unique identifier for each person and can be changed.",
+        "It can be assigned once during object creation and is read-only afterwards.",
+        "It is a private attribute with no getter or setter.",
+        "It can be set and modified using a public setter method."
+      ],
+      "correct_index": 1,
+      "explanation": "The `id` attribute is read-only and cannot be changed after the object is created, as specified by `@property id → միայն կարդալու (read-only)`."
+    },
+    {
+      "id": 10,
+      "question": "According to the `Student` class rules (March 1), which statement about courses and grades is true?",
+      "options": [
+        "A student can enroll in the same course multiple times to improve their grade.",
+        "A grade can be added for any course, regardless of whether the student is enrolled.",
+        "A student cannot enroll in the same course twice, and a grade cannot be added if not enrolled.",
+        "GPA is manually set by the student, not calculated."
+      ],
+      "correct_index": 2,
+      "explanation": "The rules state: 'Ուսանողը չի կարող նույն դասընթացին գրանցվել երկու անգամ' (A student cannot enroll in the same course twice) and 'Գնահատական չի կարելի ավելացնել, եթացի գրանցված չէ տվյալ դասընթացում' (A grade cannot be added if the student is not enrolled in that course)."
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "quiz_code": "LLRAQKU7",
+  "topic": "makjclkajclkaclac",
+  "language": "en",
+  "difficulty": "medium",
+  "created_at": "2026-03-02T20:19:38Z",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which of the following countries granted Elon Musk citizenship from birth?",
+      "options": [
+        "United States",
+        "Canada and South Africa",
+        "Canada only",
+        "South Africa only"
+      ],
+      "correct_index": 1,
+      "explanation": "The text states that Musk holds both South African and Canadian citizenship from birth, as his mother was born in Canada and he was born in South Africa."
+    },
+    {
+      "id": 2,
+      "question": "Elon Musk is the CEO and product architect of which company?",
+      "options": [
+        "SpaceX",
+        "xAI",
+        "Tesla",
+        "Neuralink"
+      ],
+      "correct_index": 2,
+      "explanation": "The material specifies that Elon Musk is the CEO and product architect of Tesla."
+    },
+    {
+      "id": 3,
+      "question": "X.com, co-founded by Elon Musk, merged to form PayPal and was later acquired by eBay in what year?",
+      "options": [
+        "1999",
+        "2000",
+        "2002",
+        "2004"
+      ],
+      "correct_index": 2,
+      "explanation": "The text states that PayPal, formed from X.com, was acquired by eBay in 2002."
+    },
+    {
+      "id": 4,
+      "question": "According to Forbes as of February 2026, what was Elon Musk's estimated net worth?",
+      "options": [
+        "US$1 trillion",
+        "US$852 billion",
+        "US$500 billion",
+        "US$100 billion"
+      ],
+      "correct_index": 1,
+      "explanation": "As of February 2026, Forbes estimates his net worth to be around US$852 billion."
+    },
+    {
+      "id": 5,
+      "question": "What position did Elon Musk hold in the Trump administration after Donald Trump's inauguration in early 2025?",
+      "options": [
+        "Secretary of Commerce",
+        "Senior Advisor to the President",
+        "Ambassador to South Africa",
+        "Head of Space Exploration"
+      ],
+      "correct_index": 1,
+      "explanation": "Musk served as Senior Advisor to the President and de facto head of the Department of Government Efficiency (DOGE)."
+    },
+    {
+      "id": 6,
+      "question": "Which of the following has Elon Musk been criticized for, according to the provided text?",
+      "options": [
+        "Promoting renewable energy",
+        "Developing advanced AI",
+        "COVID-19 misinformation",
+        "His leadership at Tesla"
+      ],
+      "correct_index": 2,
+      "explanation": "The material mentions criticisms for 'COVID-19 misinformation, promoting conspiracy theories, and affirming antisemitic, racist, and transphobic comments'."
+    },
+    {
+      "id": 7,
+      "question": "What were Elon Musk's parents' professions as described in the text?",
+      "options": [
+        "His mother was a politician and his father was an artist.",
+        "His mother was a model and dietitian, and his father was an electromechanical engineer and property developer, among other things.",
+        "Both of his parents were academics.",
+        "His mother was a lawyer and his father was a doctor."
+      ],
+      "correct_index": 1,
+      "explanation": "His mother, Maye, is described as a model and dietitian, and his father, Errol, as an electromechanical engineer, pilot, sailor, consultant, emerald dealer, and property developer."
+    },
+    {
+      "id": 8,
+      "question": "Why did Elon Musk establish xAI after co-founding OpenAI?",
+      "options": [
+        "OpenAI merged with Tesla.",
+        "He was discontent with OpenAI's direction.",
+        "He wanted to focus solely on reusable rockets.",
+        "OpenAI was acquired by another company."
+      ],
+      "correct_index": 1,
+      "explanation": "He left OpenAI due to 'growing discontent with the organization's direction' and subsequently established xAI."
+    },
+    {
+      "id": 9,
+      "question": "When did Elon Musk acquire the social network Twitter, which he later rebranded as X?",
+      "options": [
+        "2015",
+        "2022",
+        "2023",
+        "2025"
+      ],
+      "correct_index": 1,
+      "explanation": "He acquired Twitter in 2022 and rebranded it as X in 2023."
+    },
+    {
+      "id": 10,
+      "question": "From which university did Elon Musk receive his bachelor's degrees in 1997?",
+      "options": [
+        "Stanford University",
+        "University of California, Berkeley",
+        "University of Pennsylvania",
+        "Pretoria University"
+      ],
+      "correct_index": 2,
+      "explanation": "The text states he received his bachelor's degrees in 1997 from the University of Pennsylvania."
+    }
+  ]
+}
