@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>AIVex • Student Mode</title>
 
-    <!-- Base project styles -->
+    
     <link rel="stylesheet" href="/static/styles.css" />
 
     
 
-    <!-- Bootstrap 5 (CDN) -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-<!-- Tailwind CSS -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -27,7 +27,7 @@
       };
     </script>
 
-    <!-- GSAP for subtle motion -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
@@ -143,7 +143,7 @@
   </head>
 
   <body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
-    <!-- Animated background -->
+    
     <div class="fixed inset-0 -z-20 animated-gradient"></div>
     <div class="bg">
       <div class="blob b1"></div>
@@ -159,11 +159,11 @@
       ></div>
     </div>
 
-    <!-- Custom cursor -->
+    
     <div id="cursor-dot" class="cursor-dot"></div>
     <div id="cursor-glow" class="cursor-glow"></div>
 
-    <!-- Scroll progress -->
+    
     <div
       id="scroll-progress"
       class="fixed left-0 top-0 z-40 h-1 w-full bg-gradient-to-r from-fuchsia-500 via-sky-400 to-emerald-400"
@@ -203,7 +203,7 @@
       <main
         class="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8"
       >
-        <!-- Friendly intro -->
+      
         <section class="reveal-up text-center">
           <p
             class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.28em] text-sky-200"
@@ -221,13 +221,13 @@
           </p>
         </section>
 
-        <!-- Main grid: join + quiz + results -->
+        
         <section class="reveal-up grid flex-1 gap-5 md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.9fr)]">
-          <!-- Left column: code entry + quiz -->
+          
           <div
             class="flex flex-col rounded-3xl border border-sky-400/40 bg-slate-950/85 p-5 shadow-[0_20px_80px_rgba(15,23,42,1)] backdrop-blur-2xl"
           >
-            <!-- Join card -->
+            
             <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
               <div class="flex flex-wrap items-center justify-between gap-3">
                 <div class="flex items-center gap-2">
@@ -283,7 +283,7 @@
               <p id="status" class="mt-2 text-[11px] text-slate-300"></p>
             </div>
 
-            <!-- Quiz area, wired to backend -->
+            
             <div class="mt-4 flex-1 rounded-2xl border border-white/10 bg-slate-950/80 p-4">
               <div class="mb-2 flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2 text-xs text-slate-300">
@@ -324,7 +324,7 @@
             </div>
           </div>
 
-          <!-- Right column: results -->
+          
           <div
             class="reveal-up flex flex-col rounded-3xl border border-emerald-400/40 bg-slate-950/85 p-5 shadow-[0_20px_80px_rgba(15,23,42,1)] backdrop-blur-2xl"
           >
@@ -367,17 +367,17 @@
       </footer>
     </div>
 
-    <!-- Existing student logic -->
+    
     <script src="/static/app_student.js"></script>
 
-    <!-- Student micro-interactions -->
+    
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const prefersReducedMotion = window.matchMedia(
           "(prefers-reduced-motion: reduce)"
         ).matches;
 
-        // Custom cursor
+        
         const cursorDot = document.getElementById("cursor-dot");
         const cursorGlow = document.getElementById("cursor-glow");
         if (cursorDot && cursorGlow && !prefersReducedMotion && window.gsap) {
@@ -399,7 +399,7 @@
           });
         }
 
-        // Scroll progress
+        
         const scrollProgress = document.getElementById("scroll-progress");
         if (scrollProgress && !prefersReducedMotion) {
           const updateProgress = () => {
@@ -431,7 +431,7 @@
           });
         }
 
-        // Micro interaction: small bounce when status shows success
+        
         const results = document.getElementById("results");
         const status = document.getElementById("status");
         if (results && status && window.MutationObserver && !prefersReducedMotion) {
@@ -450,7 +450,7 @@
     </script>
   
 
-    <!-- Bootstrap 5 JS bundle (includes Popper) -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

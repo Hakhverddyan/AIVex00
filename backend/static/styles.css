@@ -27,7 +27,7 @@ body{
     linear-gradient(180deg, #050812 0%, #070B14 65%, #070B14 100%);
   overflow-x:hidden;
 
-  /* Page enter animation */
+  
   opacity:0;
   transform: translateY(8px);
   transition: opacity .55s ease, transform .55s ease;

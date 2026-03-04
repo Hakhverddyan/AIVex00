@@ -93,7 +93,7 @@ function renderQuiz(locked){
     wrap.appendChild(div);
   });
 
-  // Click handlers only when not locked
+
   wrap.querySelectorAll('.opt').forEach(el=>{
     el.onclick=()=>{
       if(locked) return;
@@ -132,7 +132,7 @@ $('reset').onclick=()=>{
 
 $('submit').onclick=async ()=>{
   if(!quiz) return;
-  // Require answering all questions
+  
   const missing = chosen.map((v,i)=>v===-1?i+1:null).filter(v=>v!==null);
   if(missing.length){
     $('status').textContent = 'Please answer all questions before submitting. Missing: ' + missing.join(', ');
@@ -152,7 +152,7 @@ $('submit').onclick=async ()=>{
     <div class="small" style="margin-top:8px">Correct answers are shown below.</div>
   `;
 
-  // Summary like: 1 - B, 2 - C ...
+  
   const letters = (i)=>String.fromCharCode(97+i);
   const summary = data.results
     .slice()

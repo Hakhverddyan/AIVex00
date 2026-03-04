@@ -43,7 +43,7 @@ class StudentQuizPayload(BaseModel):
 
 class SubmitRequest(BaseModel):
     quiz_code: str
-    answers: List[int]  # index per question, -1 for skipped
+    answers: List[int]  
 
 class PerQuestionResult(BaseModel):
     id: int

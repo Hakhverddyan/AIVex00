@@ -16,7 +16,7 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 @app.exception_handler(Exception)
 async def unhandled_exception_handler(request: Request, exc: Exception):
-    # Always return JSON so the frontend can display errors cleanly.
+    
     return JSONResponse(status_code=500, content={"detail": f"Internal Server Error: {type(exc).__name__}: {str(exc)}"})
 
 

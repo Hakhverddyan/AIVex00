@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>AIVex • Teacher Mode Dashboard</title>
 
-    <!-- Base project styles -->
+    
     <link rel="stylesheet" href="/static/styles.css" />
 
     
 
-    <!-- Bootstrap 5 (CDN) -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-<!-- Tailwind for modern layout & utilities -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -36,7 +36,7 @@
       };
     </script>
 
-    <!-- GSAP for motion and micro-interactions -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
@@ -157,7 +157,7 @@
           0 0 50px rgba(56, 189, 248, 0.45);
       }
 
-      /* Button ripple effect */
+      
       .ripple {
         position: absolute;
         border-radius: 999px;
@@ -184,7 +184,7 @@
         transform-origin: 0 50%;
       }
 
-      /* Extra animations for AIVex */
+      
       @keyframes pulse-glow {
         0%, 100% { box-shadow: 0 0 20px rgba(56,189,248,0.3); }
         50% { box-shadow: 0 0 40px rgba(168,85,247,0.5); }
@@ -215,7 +215,7 @@
   </head>
 
   <body class="min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
-    <!-- Shared animated gradient and blobs -->
+    
     <div class="fixed inset-0 -z-20 animated-gradient"></div>
     <div class="bg">
       <div class="blob b1"></div>
@@ -231,11 +231,11 @@
       ></div>
     </div>
 
-    <!-- Custom cursor -->
+    
     <div id="cursor-dot" class="cursor-dot"></div>
     <div id="cursor-glow" class="cursor-glow"></div>
 
-    <!-- Scroll progress -->
+    
     <div
       id="scroll-progress"
       class="fixed left-0 top-0 z-40 h-1 w-full bg-gradient-to-r from-fuchsia-500 via-sky-400 to-emerald-400"
@@ -244,9 +244,9 @@
 
     <div id="toast" class="toast"></div>
 
-    <!-- Teacher dashboard shell -->
+    
     <div class="relative z-10 flex min-h-screen flex-col">
-      <!-- Top bar -->
+      
       <header
         class="border-b border-white/5 bg-slate-950/80 backdrop-blur-xl shadow-[0_18px_60px_rgba(0,0,0,0.7)]"
       >
@@ -284,13 +284,13 @@
         </div>
       </header>
 
-      <!-- Main dashboard layout -->
+      
       <div class="mx-auto flex w-full max-w-4xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
-        <!-- Main content column -->
+        
         <main class="flex-1 space-y-6 w-full">
-          <!-- AI quiz generation form -->
+      
           <section class="space-y-6">
-            <!-- AI quiz generation form (wired to backend IDs) -->
+          
             <div
               class="reveal-up tilt-card rounded-3xl border border-sky-400/40 bg-slate-950/80 p-5 shadow-[0_24px_90px_rgba(15,23,42,0.95)] backdrop-blur-2xl animate-float-subtle"
             >
@@ -312,7 +312,7 @@
                 >
               </div>
 
-              <!-- Teacher password and controls -->
+              
               <div
                 class="mt-4 grid gap-4 rounded-2xl border border-white/10 bg-slate-950/70 p-4 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
               >
@@ -367,7 +367,7 @@
                 </div>
               </div>
 
-              <!-- Quiz configuration -->
+              
               <div class="mt-5 space-y-3">
                 <div class="grid gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
                   <div class="space-y-2">
@@ -467,7 +467,7 @@
             </div>
           </section>
 
-          <!-- Output section wired to backend IDs -->
+          
           <section id="quizOutputSection">
             <div
               class="tilt-card rounded-3xl border border-white/10 bg-slate-950/85 p-5 shadow-[0_20px_80px_rgba(15,23,42,1)] backdrop-blur-2xl animate-float-subtle"
@@ -532,10 +532,10 @@
       </footer>
     </div>
 
-    <!-- Existing teacher logic -->
+    
     <script src="/static/app_teacher.js"></script>
 
-    <!-- Dashboard motion & micro-interactions -->
+    
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const prefersReducedMotion = window.matchMedia(
@@ -598,7 +598,7 @@
           });
         }
 
-        // 3D tilt on cards
+        
         document.querySelectorAll(".tilt-card").forEach((card) => {
           const strength = 10;
           card.addEventListener("pointermove", (e) => {
@@ -614,7 +614,7 @@
           });
         });
 
-        // Button ripple
+        
         document.querySelectorAll(".btn").forEach((btn) => {
           btn.addEventListener("click", (event) => {
             const rect = btn.getBoundingClientRect();
@@ -630,7 +630,7 @@
     </script>
   
 
-    <!-- Bootstrap 5 JS bundle (includes Popper) -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
